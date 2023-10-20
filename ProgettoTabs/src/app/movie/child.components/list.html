@@ -7,11 +7,11 @@
 <ion-list>
     <ion-item-sliding *ngFor="let item of filmsArray;" >
       <ion-item (click)="clickMovie(item.id)">
-        <ion-label>{{item.title}}, {{item.genres}}, {{item.id}}, {{item.startYear}}, {{item.runtimeMinutes}}</ion-label>
+        <ion-label>{{item.title}}</ion-label>
       </ion-item>
   
       <ion-item-options>
-        <ion-item-option><ion-icon name="create-outline"></ion-icon></ion-item-option>
+        <ion-item-option (click)="clickEdit(item.id)"><ion-icon name="create-outline"></ion-icon></ion-item-option>
         <ion-item-option color="danger"><ion-icon name="trash-outline"></ion-icon></ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

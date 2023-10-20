@@ -2,9 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MoviePage } from './movie.page';
 import { MovieDetail } from './child.components/detail';
+import { MovieEdit } from './child.components/edit';
 
 const routes: Routes = [
-
+  {
+    path: 'edit/:id', 
+   component: MovieEdit,
+ },
   {
     path: 'detail/:id', 
    component: MovieDetail,
@@ -13,14 +17,6 @@ const routes: Routes = [
   path:'',
   component:MoviePage
  }
-  //{
-  ////  path: 'parent',
-  ///  component: MoviePage,
-  //  children:[{
-   //   path: './list/:id',
-    //  component: List
-    //}]
- // }
 ];
 
 @NgModule({

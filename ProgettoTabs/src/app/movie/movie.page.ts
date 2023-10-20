@@ -9,19 +9,36 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['movie.page.scss']
 })
 export class MoviePage {
-
+ moviesList: films[] = [];
   constructor(private readonly _movies: MoviesService,
     private readonly _router : Router,
-    private readonly _acroute :ActivatedRoute) {}
+    private readonly _acroute :ActivatedRoute) {
+      
+      this.moviesList = this._movies.getMovies(); //NEL COSTRUTTORE IMPORTANTE!
+    }
 
-  moviesList: films[] = this._movies.getMovies();
- // film :film=this._moviesgetMovie();
+    ionViewWillEnter(){
+      this._movies.getMovies();
+    }
+
+   /* private _getFilms(){
+      this.lista=this.oviesService.getList().map((values: Film))=>{
+
+        return 
+      }
+    }*/
+
 
 edit(id:string){ //si
 console.log(id);  
 this._router.navigate(['tabs', 'movie', 'detail', id]);
-
-
 }
+
+modifica(id: string){ //mi modifica il film
+  console.log(id);
+  this._router.navigate(['tabs', 'movie', 'edit', id]);
+}
+
+
 
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { celebrity } from '../shared/interfaces/celebrity.interface';
+import { CelebritiesService } from '../services/celebrity.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-celebrity',
@@ -7,6 +10,23 @@ import { Component } from '@angular/core';
 })
 export class CelebrityPage {
 
-  constructor() {}
+  celebritiesList: celebrity[]=[];
+
+  constructor(private readonly _celebService: CelebritiesService,
+    private readonly _router: Router) {
+      this.celebritiesList= this._celebService.getCelebrities();
+    }
+
+    ionViewWillEnter(){
+      this._celebService.getCelebrities();
+    }
+
 
 }
+    
+
+
+
+
+
+
