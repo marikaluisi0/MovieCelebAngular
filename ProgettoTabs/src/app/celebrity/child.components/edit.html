@@ -1,0 +1,36 @@
+<ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#list.html"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+
+<!--(ngSubmit)="submitForm()-->
+  <form *ngIf="formCel" class="form"[formGroup]="formCel" (ngSubmit)="submitForm()" novalidate>
+
+    <div>
+        <ion-label color="secondary" position="floating">Nome dell'attore</ion-label>
+        <ion-input formControlName="name" type="text"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Anno di nascita</ion-label>
+        <ion-input formControlName="birth" type="number"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Anno di morte</ion-label>
+        <ion-input formControlName="death" type="number"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">I film in cui ha recitato</ion-label>
+        <ion-input formControlName="movies" type="text"></ion-input>
+    </div>
+
+    <ion-row>
+        <ion-col>
+            <ion-button type="submit" expand="block" [disabled]="!formCel.valid">Salva</ion-button>
+        </ion-col>
+    </ion-row>
+</form>

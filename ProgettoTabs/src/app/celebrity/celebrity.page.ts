@@ -21,6 +21,16 @@ export class CelebrityPage {
       this._celebService.getCelebrities();
     }
 
+    getList(id:string){ 
+      console.log(id);  
+      this._router.navigate(['tabs', 'celebrity', 'detail', id]);
+      }
+
+      modifica(id: string){
+        console.log(id);
+        this._router.navigate(['tabs', 'celebrity', 'edit', id]);
+      }
+
 
 }
     

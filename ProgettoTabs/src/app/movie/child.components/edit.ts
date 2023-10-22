@@ -61,13 +61,5 @@ export class MovieEdit{
 
 
 
-
-
-
-
-          //  clickEdit(id:string){  LO INSERISCO NEL COMP LISTA
-      //  this.filmEdit.emit(id);
-      //}
-
      
 }

@@ -1,11 +1,14 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CelebrityPage } from './celebrity.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import {  CelebrityPageRoutingModule } from './celebrity-routing.module';
+import { List } from './child.components/list.component';
+import { CelebrityDetail } from './child.components/detail';
+import { CelebrityEdit } from './child.components/edit';
 
 @NgModule({
   imports: [
@@ -13,8 +16,10 @@ import {  CelebrityPageRoutingModule } from './celebrity-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    CelebrityPageRoutingModule
+    CelebrityPageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  declarations: [CelebrityPage]
+  declarations: [CelebrityPage, List, CelebrityDetail,CelebrityEdit]
 })
 export class CelebrityPageModule {}

@@ -1,19 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { films } from '../movie.interfaces/movie.interface';
+import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-list-cel',
   templateUrl: 'list.html',
 })
 export class List implements OnInit {
-  @Input() filmsArray: films[] = []; 
-  @Output() film = new EventEmitter<string>(); 
-  @Output() filmEdit = new EventEmitter<string>(); 
+  @Input() celebritiesArray: celebrity[] = []; //si
+  @Output() celebrity = new EventEmitter<string>(); //si
+  @Output() celebrityEdit = new EventEmitter<string>(); //si
 
 
-  filmId: string = "";
+  celebrityId: string = "";
 
 
 
@@ -25,19 +25,19 @@ export class List implements OnInit {
       if (params && params.get('id')) {
         const id = params.get('id');
         if (id)
-          this.filmId = id;
+          this.celebrityId = id;
       }
     })
   }
 
 
 
-  clickMovie(id: string) {
-    this.film.emit(id);
+  clickCelebrity(id: string) { //nella list //si
+    this.celebrity.emit(id);
   }
 
   clickEdit(id: string) {
-    this.filmEdit.emit(id);
+    this.celebrityEdit.emit(id);
   }
 
 
