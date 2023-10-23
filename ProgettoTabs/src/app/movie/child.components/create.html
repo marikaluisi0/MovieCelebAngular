@@ -1,0 +1,47 @@
+<ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button default-href="#list.html"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+
+<form *ngIf="create" class="form"[formGroup]="create" (ngSubmit)="submitForm()" novalidate>
+
+    <div>
+        <ion-label color="secondary" position="floating">Nome del film</ion-label>
+        <ion-input formControlName="title1" type="text"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Genere</ion-label>
+        <ion-input formControlName="genres" type="text"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Anno</ion-label>
+        <ion-input formControlName="startYear" type="number"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Durata</ion-label>
+        <ion-input formControlName="runtimeMinutes" type="number"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Attori</ion-label>
+        <ion-input formControlName="celebrities" type="text"></ion-input>
+    </div>
+
+    <div>
+        <ion-label color="secondary" position="floating">Paese/i di produzione</ion-label>
+        <ion-input formControlName="countries" type="text"></ion-input>
+    </div>
+
+
+    <ion-row>
+        <ion-col>
+            <ion-button type="submit" expand="block" [disabled]="!create.valid">Salva</ion-button>
+        </ion-col>
+    </ion-row>
+</form>
+

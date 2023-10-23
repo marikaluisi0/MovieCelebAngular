@@ -9,7 +9,7 @@ import { Subject } from "rxjs";
 
 export class MoviesService {
    private _subjectM$ = new Subject<films[]>();
-   filmsObs$= this._subjectM$.asObservable();
+   filmsObs$ = this._subjectM$.asObservable();
    //ma con un obs non posso usare il next, unica cosa che posso fare, quindi
    //è la lettura
 
@@ -67,12 +67,12 @@ export class MoviesService {
         this._subjectM$.next(this._lista);
     }
 
-    delete(filmSelected : films){
-        const index = this._lista.findIndex((film: films) => film.id === filmSelected.id);
+    delete(idSelected : string){
+        const index = this._lista.findIndex((film: films) => film.id === idSelected);
         if (index !== -1) {
-           this._lista.splice(index, 1);     
+           this._lista.splice(index, 1);   
+           this._subjectM$.next(this._lista); //serve per l'agg
         }
-
         }
     }
 

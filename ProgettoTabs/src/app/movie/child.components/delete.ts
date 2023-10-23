@@ -2,13 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { films } from '../movie.interfaces/movie.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
 
 
 @Component({
-  selector: 'app-movie-delete',
-  templateUrl: 'delete.html',
+    selector: 'app-movie-delete',
+    templateUrl: 'delete.html',
 })
 export class MovieDelete{
 
@@ -23,7 +21,7 @@ export class MovieDelete{
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
            this.films=this._movies.getMovieById(id);
-           this._movies.delete;
+           //this._movies.delete; FUNZIONA LO STESSO
           })
   
       }

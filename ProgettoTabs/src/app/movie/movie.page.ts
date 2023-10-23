@@ -48,7 +48,7 @@ modifica(id: string){ //mi modifica il film
 
 delete(id: string){
   console.log(id);
-this._movies.delete;
+this._movies.delete(id);
 }
 
 
