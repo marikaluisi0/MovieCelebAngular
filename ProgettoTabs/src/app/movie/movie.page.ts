@@ -14,15 +14,19 @@ export class MoviePage {
     private readonly _router : Router,
     private readonly _acroute :ActivatedRoute) {
       
-      this.moviesList = this._movies.getMovies(); //NEL COSTRUTTORE IMPORTANTE!
+      
+    // this.moviesList = this._movies.getMovies(); //NEL COSTRUTTORE IMPORTANTE!
+     this._movies.filmsObs$.subscribe();
     }
+
+
 
     ionViewWillEnter(){
       this._movies.getMovies();
     }
 
    /* private _getFilms(){
-      this.lista=this.oviesService.getList().map((values: Film))=>{
+      this.lista=this.moviesService.getList().map((values: Film))=>{
 
         return 
       }

@@ -4,5 +4,4 @@ export interface celebrity{
     birthYear:number;
     deathYear?: number;
     movies?: [];
-
 }

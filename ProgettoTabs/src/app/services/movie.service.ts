@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { films } from "../movie/movie.interfaces/movie.interface";
+import { Subject } from "rxjs";
 
 
 @Injectable({
@@ -7,8 +8,17 @@ import { films } from "../movie/movie.interfaces/movie.interface";
 })
 
 export class MoviesService {
+   private _subjectM$ = new Subject<films[]>();
+   filmsObs$= this._subjectM$.asObservable();
+   //ma con un obs non posso usare il next, unica cosa che posso fare, quindi
+   //è la lettura
 
-    lista: films[] =
+
+
+
+    private _lista: films[] =
+
+
 
         [
             {
@@ -37,33 +47,25 @@ export class MoviesService {
         ]
 
 
+ 
 
 
 
-    getMovies(): films[] {
-        return this.lista;
+    getMovies(): void {
+        return this._subjectM$.next(this._lista); //ok
+    }
+//next=invia un dato
+//subscribe=lo riceve
+    getMovieById(id: string): films|undefined {
+      return this._lista.find((_lista:films)=>_lista.id===id);
     }
 
-    getMovieById(id: string | null): films {
-        const movie: films | undefined = this.lista.find(lista => lista.id === id);
-        if (movie) {
-            return movie;
-        } else {
-            return {
-                id: "0",
-                title: "",
-                startYear: 0,
-                genres: "",
-                runtimeMinutes: 0
-            }
-        }
-    }
-
-    update(filmSelected: films): void {
-        const index = this.lista.findIndex((film: films) => film.id === filmSelected.id);
+    update(filmSelected: films) {
+        const index = this._lista.findIndex((film: films) => film.id === filmSelected.id);
         if (index !== -1) {
-            this.lista[index] = filmSelected;
+            this._lista[index] = filmSelected;
         }
+        this._subjectM$.next(this._lista);
     }
 
 

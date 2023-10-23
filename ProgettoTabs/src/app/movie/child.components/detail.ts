@@ -25,14 +25,18 @@ export class MovieDetail{
 
 
     mov?: films; //opzionale 
+    films:films|undefined=undefined;
 
     constructor(private readonly _movies: MoviesService,
       private readonly _router : Router,
       private readonly _acroute :ActivatedRoute) {
   
-        this._acroute.paramMap.subscribe(params=>{
-          const id: string|null= params.get('id');
-           this.mov= this._movies.getMovieById(id);
+        this._acroute.params.subscribe(params=>{
+          const id= params['id'];
+          this.films=this._movies.getMovieById(id);
+          
+
+           //this.mov= this._movies.getMovieById(id);
         })
   
       }
