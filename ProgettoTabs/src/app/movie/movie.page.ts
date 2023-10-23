@@ -16,7 +16,9 @@ export class MoviePage {
       
       
     // this.moviesList = this._movies.getMovies(); //NEL COSTRUTTORE IMPORTANTE!
-     this._movies.filmsObs$.subscribe();
+     this._movies.filmsObs$.subscribe((films) => {
+      this.moviesList = films;
+     });
     }
 
 
