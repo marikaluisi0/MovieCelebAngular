@@ -11,6 +11,7 @@ export class List implements OnInit {
   @Input() filmsArray: films[] = []; 
   @Output() film = new EventEmitter<string>(); 
   @Output() filmEdit = new EventEmitter<string>(); 
+  @Output() filmDelete= new EventEmitter<string>();
 
 
   filmId: string = "";
@@ -38,6 +39,10 @@ export class List implements OnInit {
 
   clickEdit(id: string) {
     this.filmEdit.emit(id);
+  }
+
+  clickDelete(id:string){
+    this.filmDelete.emit(id);
   }
 
 

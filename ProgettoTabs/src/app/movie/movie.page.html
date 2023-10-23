@@ -14,7 +14,7 @@
   </ion-header>
 
   <div class="all-movies">
-  <app-list [filmsArray]="moviesList" (film)="edit($event)"  (filmEdit)="modifica($event)"></app-list>
+  <app-list [filmsArray]="moviesList" (film)="edit($event)"  (filmEdit)="modifica($event)" (filmDelete)="delete($event)"></app-list>
   <!--<app-movie-edit (filmEdit)="modifica($event)"></app-movie-edit> -->
   </div>
 

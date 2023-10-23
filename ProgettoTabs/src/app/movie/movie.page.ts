@@ -25,6 +25,7 @@ export class MoviePage {
 
     ionViewWillEnter(){
       this._movies.getMovies();
+    
     }
 
    /* private _getFilms(){
@@ -43,6 +44,11 @@ this._router.navigate(['tabs', 'movie', 'detail', id]);
 modifica(id: string){ //mi modifica il film
   console.log(id);
   this._router.navigate(['tabs', 'movie', 'edit', id]);
+}
+
+delete(id: string){
+  console.log(id);
+this._movies.delete;
 }
 
 

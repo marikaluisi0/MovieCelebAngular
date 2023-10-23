@@ -12,9 +12,6 @@ import { Subject } from 'rxjs';
 })
 export class MovieDelete{
 
-
-    mov?: films; //?=opzionale 
-    formUser: FormGroup | undefined;
     films:films|undefined=undefined;
     
 
@@ -26,42 +23,13 @@ export class MovieDelete{
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
            this.films=this._movies.getMovieById(id);
+           this._movies.delete;
           })
-
-      
-
   
       }
 
-      
-
-      private _setForm(){
-        this.formUser = new FormGroup({//creo una form che rispetta tutta la struttura che creo in questo form
-            id: new FormControl(this.mov?.id),
-            title1: new FormControl(this.mov?.title, Validators.required),
-            genres: new FormControl(this.mov?.genres),
-            startYear: new FormControl(this.mov?.startYear),
-            runtimeMinutes:new FormControl(this.mov?.runtimeMinutes),
-            celebrities: new FormControl(this.mov?.celebrities),
-            countries: new FormControl(this.mov?.countries),
-           })
-
-           this.formUser.valueChanges.subscribe((x)=>{
-            console.log(x);
-           })
-        
-      }
 
     
-       submitForm(){
-        console.log(this.formUser?.value);
-        if (this.formUser?.valid){
-           this._movies.update(this.formUser?.value);
-            //subscribe(()=>)
-            this._router.navigate(['/tabs/movie']);
-            //this._location.back();
-        //)
-        }
 
 
 
@@ -78,4 +46,3 @@ export class MovieDelete{
 
 
      
-}

@@ -15,7 +15,6 @@ export class MoviesService {
 
 
 
-
     private _lista: films[] =
 
 
@@ -68,7 +67,16 @@ export class MoviesService {
         this._subjectM$.next(this._lista);
     }
 
+    delete(filmSelected : films){
+        const index = this._lista.findIndex((film: films) => film.id === filmSelected.id);
+        if (index !== -1) {
+           this._lista.splice(index, 1);     
+        }
+
+        }
+    }
 
 
 
-}
+
+

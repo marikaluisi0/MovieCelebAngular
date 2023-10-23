@@ -9,6 +9,7 @@ import { MoviePageRoutingModule } from './movie-routing.module';
 import { List } from './child.components/list.component';
 import { MovieDetail } from './child.components/detail';
 import { MovieEdit } from './child.components/edit';
+import { MovieDelete } from './child.components/delete';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { MovieEdit } from './child.components/edit';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [MoviePage, List, MovieDetail, MovieEdit]
+  declarations: [MoviePage, List, MovieDetail, MovieEdit, MovieDelete]
 })
 export class MoviePageModule {}

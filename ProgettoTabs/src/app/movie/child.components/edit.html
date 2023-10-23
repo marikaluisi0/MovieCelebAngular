@@ -6,7 +6,8 @@
   </ion-toolbar>
 
 <!--(ngSubmit)="submitForm()-->
-  <form *ngIf="formUser" class="form"[formGroup]="formUser" (ngSubmit)="submitForm()" novalidate>
+
+<form *ngIf="formUser" class="form"[formGroup]="formUser" (ngSubmit)="submitForm()" novalidate>
 
     <div>
         <ion-label color="secondary" position="floating">Nome del film</ion-label>
@@ -45,3 +46,4 @@
         </ion-col>
     </ion-row>
 </form>
+

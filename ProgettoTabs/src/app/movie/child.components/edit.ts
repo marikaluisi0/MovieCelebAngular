@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 export class MovieEdit{
 
 
-    mov?: films; //?=opzionale 
+    //mov?: films; //?=opzionale 
    // @Output() filmEdit= new EventEmitter<string>(); //si 
     formUser: FormGroup | undefined;
     films:films|undefined=undefined;
@@ -28,6 +28,7 @@ export class MovieEdit{
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
            this.films=this._movies.getMovieById(id);
+           this._setForm();
           })
 
       
@@ -39,13 +40,13 @@ export class MovieEdit{
 
       private _setForm(){
         this.formUser = new FormGroup({//creo una form che rispetta tutta la struttura che creo in questo form
-            id: new FormControl(this.mov?.id),
-            title1: new FormControl(this.mov?.title, Validators.required),
-            genres: new FormControl(this.mov?.genres),
-            startYear: new FormControl(this.mov?.startYear),
-            runtimeMinutes:new FormControl(this.mov?.runtimeMinutes),
-            celebrities: new FormControl(this.mov?.celebrities),
-            countries: new FormControl(this.mov?.countries),
+            id: new FormControl(this.films?.id),
+            title1: new FormControl(this.films?.title, Validators.required),
+            genres: new FormControl(this.films?.genres),
+            startYear: new FormControl(this.films?.startYear),
+            runtimeMinutes:new FormControl(this.films?.runtimeMinutes),
+            celebrities: new FormControl(this.films?.celebrities),
+            countries: new FormControl(this.films?.countries),
            })
 
            this.formUser.valueChanges.subscribe((x)=>{
