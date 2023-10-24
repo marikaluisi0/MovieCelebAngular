@@ -1,26 +1,26 @@
-/*import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MoviesService } from 'src/app/services/movie.service';
+import { CelebritiesService } from 'src/app/services/celebrity.service';
+import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 
 
 @Component({
-    selector: 'app-movie-delete',
+    selector: 'app-celebrity-delete',
     templateUrl: 'delete.html',
 })
-export class MovieDelete{
+export class CelebrityDelete{
 
-    films:films|undefined=undefined;
+    celebrities:celebrity|undefined=undefined;
     
 
 
-    constructor(private readonly _movies: MoviesService,
+    constructor(private readonly _celebrityService: CelebritiesService,
       private readonly _router : Router,
       private readonly _acroute :ActivatedRoute,
      ) {
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
-           this.films=this._movies.getMovieById(id);
-           //this._movies.delete; FUNZIONA LO STESSO
+           this._celebrityService.getCelebrityById(id).subscribe((ris: celebrity)=>this.celebrities=ris);
           })
   
       }
@@ -42,4 +42,4 @@ export class MovieDelete{
 
 
 
-     */
+     

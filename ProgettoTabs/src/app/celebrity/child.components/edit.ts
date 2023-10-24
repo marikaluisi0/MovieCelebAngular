@@ -1,4 +1,4 @@
-/*import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
@@ -22,8 +22,11 @@ export class CelebrityEdit{
   
         this._acroute.params.subscribe(params=>{ 
           const id= params['id'];
-           this.celebrity= this._cel.getCelebrityById(id); 
-           this._setForm();
+           this._cel.getCelebrityById(id).subscribe((celebrities: celebrity)=>{
+            
+            this.celebrity=celebrities;
+            this._setForm();
+          });
         })
   
       }
@@ -31,7 +34,7 @@ export class CelebrityEdit{
       private _setForm(){
         this.formCel = new FormGroup({//creo una form che rispetta tutta la struttura che creo in questo form
             id: new FormControl(this.celebrity?.id),
-            name: new FormControl(this.celebrity?.primary_name, Validators.required),
+            name: new FormControl(this.celebrity?.name, Validators.required),
             birth: new FormControl(this.celebrity?.birthYear),
             death: new FormControl(this.celebrity?.deathYear),
             movies:new FormControl(this.celebrity?.movies),
@@ -46,10 +49,7 @@ export class CelebrityEdit{
         console.log(this.formCel?.value);
         if (this.formCel?.valid){
             this._cel.update(this.formCel?.value);
-            //.subscribe(()=>
             this._router.navigate(['/tabs/celebrity']);
-            //this._location.back();
-        //)
         }
       }
 
@@ -61,4 +61,3 @@ export class CelebrityEdit{
 
      
 }
-*/

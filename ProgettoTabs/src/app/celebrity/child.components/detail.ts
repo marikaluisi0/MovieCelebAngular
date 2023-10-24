@@ -18,7 +18,7 @@ export class CelebrityDetail{
   
         this._acroute.params.subscribe(params=>{ 
           const id= params['id'];
-          this.celebrity=this._celebrity.getCelebrityById(id);
+          this._celebrity.getCelebrityById(id).subscribe((cel: celebrity)=>this.celebrity=cel);
   
       })
 }

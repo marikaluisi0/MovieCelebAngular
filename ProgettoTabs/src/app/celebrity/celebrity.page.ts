@@ -20,10 +20,11 @@ export class CelebrityPage {
    constructor(private readonly _celebService: CelebritiesService,
     private readonly _router: Router) {
     
-      this._celebService.celebritiesObs$.subscribe((celebrities: celebrity[]) => {
-        this.celebritiesList = celebrities;
+      this._celebService.getCelebrities().subscribe((result: celebrity[]) => { 
+        console.log(result);
+        this.celebritiesList = result;
       });
-      this._celebService.getCelebrities();
+      
 
     }
 

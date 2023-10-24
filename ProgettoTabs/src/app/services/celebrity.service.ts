@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { celebrity } from "../shared/interfaces/celebrity.interface";
-import { Subject } from "rxjs";
+import { Observable, Subject, map } from "rxjs";
+import { environment } from "src/environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable({
@@ -11,39 +13,24 @@ export class CelebritiesService {
 
     private _subjectC$ = new Subject<celebrity[]>();
     celebritiesObs$ = this._subjectC$.asObservable();
-    private _lista: celebrity[] =
+    private _lista: celebrity[] =[];
+    private _lunghezzaLista= this._lista.length;
+    private _baseUrl = '';
 
-        [
-            {
-                id: "celeb1",
-                primary_name: "Michael B Jordan",
-                birthYear: 1987,
-            },
-
-            {
-                id: "celeb2",
-                primary_name: "Zendaya",
-                birthYear: 1996,
-            },
-
-            {
-                id: "celeb3",
-                primary_name: "Will Smith",
-                birthYear: 1968,
-            }
-        ]
-        private _lunghezzaLista= this._lista.length;
-
-
-
-
-
-    getCelebrities(): void {
-        return this._next(); 
+    constructor(private readonly _http: HttpClient) {
+        this._baseUrl = environment.baseUrl;  //recupero l'URL
     }
 
-    getCelebrityById(id: string): celebrity|undefined {
-        return this._lista.find((_lista:celebrity)=>_lista.id===id);}
+    getCelebrities(): Observable<celebrity[]> {
+        return this._http.get<celebrity[]>(`${this._baseUrl}/celebrities`).pipe(map((result: any) => {
+            this._subjectC$.next(result.celebrities);
+            return result.celebrities;
+        }));
+    }
+
+    getCelebrityById(id: string): Observable<celebrity> {
+        return this._http.get<celebrity>(`${this._baseUrl}/celebrities/${id}`);
+    }
 
     update(celebritySelected: celebrity) {
         

@@ -9,25 +9,24 @@
 
 
 <form *ngIf="create" class="form"[formGroup]="create" (ngSubmit)="submitForm()" novalidate>
-
     <div>
         <ion-label color="secondary" position="floating">Nome del film</ion-label>
-        <ion-input formControlName="title" type="text"></ion-input>
+        <ion-input formControlName="name" type="text"></ion-input>
     </div>
 
     <div>
         <ion-label color="secondary" position="floating">Genere</ion-label>
-        <ion-input formControlName="genres" type="text"></ion-input>
+        <ion-input formControlName="birthYear" type="text"></ion-input>
     </div>
 
     <div>
         <ion-label color="secondary" position="floating">Anno</ion-label>
-        <ion-input formControlName="startYear" type="number"></ion-input>
+        <ion-input formControlName="deathYear" type="number"></ion-input>
     </div>
 
     <div>
         <ion-label color="secondary" position="floating">Durata</ion-label>
-        <ion-input formControlName="runtimeMinutes" type="number"></ion-input>
+        <ion-input formControlName="movies" type="number"></ion-input>
     </div>
 
 

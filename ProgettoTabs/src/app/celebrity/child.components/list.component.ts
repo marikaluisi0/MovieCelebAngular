@@ -8,9 +8,10 @@ import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
   templateUrl: 'list.html',
 })
 export class List implements OnInit {
-  @Input() celebritiesArray: celebrity[] = []; //si
-  @Output() celebrity = new EventEmitter<string>(); //si
-  @Output() celebrityEdit = new EventEmitter<string>(); //si
+  @Input() celebritiesArray: celebrity[] = [];
+  @Output() celebrity = new EventEmitter<string>(); 
+  @Output() celebrityEdit = new EventEmitter<string>(); 
+  @Output() celebrityDelete= new EventEmitter<string>();
 
 
   celebrityId: string = "";
@@ -38,6 +39,10 @@ export class List implements OnInit {
 
   clickEdit(id: string) {
     this.celebrityEdit.emit(id);
+  }
+
+  clickDelete(id:string){
+    this.celebrityDelete.emit(id);
   }
 
 
