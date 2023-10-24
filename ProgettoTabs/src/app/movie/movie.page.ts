@@ -9,67 +9,50 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['movie.page.scss']
 })
 export class MoviePage {
- moviesList: films[] = [];
- @Output() filmCreate= new EventEmitter<void>();
+  moviesList: films[] = [];
 
   constructor(private readonly _movies: MoviesService,
-    private readonly _router : Router,
-    private readonly _acroute :ActivatedRoute) {
-      
-      
+    private readonly _router: Router,
+    private readonly _acroute: ActivatedRoute) {
+
+
     // this.moviesList = this._movies.getMovies(); //NEL COSTRUTTORE IMPORTANTE!
-     this._movies.filmsObs$.subscribe((films) => {
+    this._movies.filmsObs$.subscribe((films: films[]) => {
       this.moviesList = films;
-     });
-    }
+    });
+    this._movies.getMovies();
 
 
+  }
 
 
+  /* private _getFilms(){
+     this.lista=this.moviesService.getList().map((values: Film))=>{
 
-    ionViewWillEnter(){
-      this._movies.getMovies();
-    
-    }
-
-   /* private _getFilms(){
-      this.lista=this.moviesService.getList().map((values: Film))=>{
-
-        return 
-      }
-    }*/
+       return 
+     }
+   }*/
 
 
-edit(id:string){ //si
-console.log(id);  
-this._router.navigate(['tabs', 'movie', 'detail', id]);
-}
+  edit(id: string) { //si
+    console.log(id);
+    this._router.navigate(['tabs', 'movie', 'detail', id]);
+  }
 
-modifica(id: string){ //mi modifica il film
-  console.log(id);
-  this._router.navigate(['tabs', 'movie', 'edit', id]);
-}
+  modifica(id: string) { //mi modifica il film
+    console.log(id);
+    this._router.navigate(['tabs', 'movie', 'edit', id]);
+  }
 
-delete(id: string){
-  console.log(id);
-this._movies.delete(id);
-}
+  delete(id: string) {
+    console.log(id);
+    this._movies.delete(id);
+  }
 
-create(){
- // this._movies.create(film);
- this._router.navigate(['tabs', 'movie', 'create']);
-}
-
-clickCreate(){
-  console.log("sono qui");
-  this.create();
-  this.filmCreate.emit();
-}
-
-
-
-
-
+  create() {
+    // this._movies.create(film);
+    this._router.navigate(['tabs', 'movie', 'create']);
+  }
 
 
 }

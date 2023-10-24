@@ -41,7 +41,7 @@ export class MovieEdit{
       private _setForm(){
         this.formUser = new FormGroup({//creo una form che rispetta tutta la struttura che creo in questo form
             id: new FormControl(this.films?.id),
-            title1: new FormControl(this.films?.title, Validators.required),
+            title: new FormControl(this.films?.title, Validators.required),
             genres: new FormControl(this.films?.genres),
             startYear: new FormControl(this.films?.startYear),
             runtimeMinutes:new FormControl(this.films?.runtimeMinutes),

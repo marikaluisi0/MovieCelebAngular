@@ -46,7 +46,8 @@ export class MoviesService {
 
 
     getMovies(): void {
-        return this._subjectM$.next(this._lista); //ok
+        return  this._next();
+        //ok
     }
 //next=invia un dato
 //subscribe=lo riceve
@@ -55,26 +56,36 @@ export class MoviesService {
     }
 
     update(filmSelected: films) {
-        const index = this._lista.findIndex((film: films) => film.id === filmSelected.id);
+        
+        const index = this._getIndex(filmSelected.id);
         if (index !== -1) {
             this._lista[index] = filmSelected;
         }
-        this._subjectM$.next(this._lista);
+        this._next();
     }
 
     delete(idSelected : string){
-        const index = this._lista.findIndex((film: films) => film.id === idSelected);
+        const index = this._getIndex(idSelected);
         if (index !== -1) {
            this._lista.splice(index, 1);   
-           this._subjectM$.next(this._lista); //serve per l'agg
+           this._next();
         }
         }
 
         create(film: films){
-            
+            //manca solo generazione del id
             this._lista.push(film);
-            this._subjectM$.next(this._lista);
+            this._next();
         }
+
+         private _getIndex(id: string): number{
+            return this._lista.findIndex((film: films) => film.id === id);
+         }
+
+         private _next(){
+            this._subjectM$.next(this._lista); //serve per l'agg
+         }
+
     }
 
 

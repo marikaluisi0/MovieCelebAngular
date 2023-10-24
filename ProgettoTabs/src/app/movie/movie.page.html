@@ -3,7 +3,7 @@
     <ion-title>
       Lista di tutti i film
     </ion-title>
-    <ion-buttons (click)="clickCreate()" slot="end">
+    <ion-buttons (click)="create()" slot="end">
       <ion-icon name="add-outline"></ion-icon>
     </ion-buttons> 
    </ion-toolbar>
@@ -18,7 +18,6 @@
 
   <div class="all-movies">
   <app-list [filmsArray]="moviesList" (film)="edit($event)"  (filmEdit)="modifica($event)" (filmDelete)="delete($event)"></app-list>
-  <!--<app-movie-edit (filmEdit)="modifica($event)"></app-movie-edit> -->
   </div>
 
 

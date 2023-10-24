@@ -21,7 +21,7 @@ export class MovieCreate{
         
         private _setForm() {
         this.create = new FormGroup({
-            title1: new FormControl("", Validators.required),
+            title: new FormControl("", Validators.required),
             genres: new FormControl(""),
             startYear: new FormControl(""),
             runtimeMinutes: new FormControl(""),
