@@ -12,6 +12,7 @@ import { MovieEdit } from './child.components/edit';
 import { MovieDelete } from './child.components/delete';
 import { MovieCreate } from './child.components/create';
 import { HeaderComponent } from '../shared/components/header/header';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { HeaderComponent } from '../shared/components/header/header';
     ExploreContainerComponentModule,
     MoviePageRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [MoviePage, List, MovieDetail, MovieEdit, MovieDelete, MovieCreate, HeaderComponent]
 })

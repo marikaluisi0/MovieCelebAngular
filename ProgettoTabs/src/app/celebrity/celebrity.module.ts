@@ -8,7 +8,8 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import {  CelebrityPageRoutingModule } from './celebrity-routing.module';
 import { List } from './child.components/list.component';
 import { CelebrityDetail } from './child.components/detail';
-import { CelebrityEdit } from './child.components/edit';
+import { HeaderComponent } from '../shared/components/header/header';
+//import { CelebrityEdit } from './child.components/edit';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { CelebrityEdit } from './child.components/edit';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [CelebrityPage, List, CelebrityDetail,CelebrityEdit]
+  declarations: [CelebrityPage, List, CelebrityDetail]
 })
 export class CelebrityPageModule {}

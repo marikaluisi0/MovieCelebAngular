@@ -9,6 +9,7 @@ import { films } from '../movie.interfaces/movie.interface';
 })
 export class List implements OnInit {
   @Input() filmsArray: films[] = []; 
+ // @Input() filmsArray: List[] = []; 
   @Output() film = new EventEmitter<string>(); 
   @Output() filmEdit = new EventEmitter<string>(); 
   @Output() filmDelete= new EventEmitter<string>();
@@ -44,13 +45,6 @@ export class List implements OnInit {
   clickDelete(id:string){
     this.filmDelete.emit(id);
   }
-
-
-
-
-
-
-
 
 
 }

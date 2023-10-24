@@ -1,19 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { films } from '../movie.interfaces/movie.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CelebritiesService } from 'src/app/services/celebrity.service';
 
 @Component({
-  selector: 'app-movie-create',
+  selector: 'app-celebrity-create',
   templateUrl: 'create.html',
 })
-export class MovieCreate{
+export class CelebrityCreate{
 
 
     create: FormGroup | undefined;
 
-    constructor(private readonly _movies: MoviesService,
+    constructor(private readonly _celebrity: CelebritiesService,
         private readonly _router: Router
      ) {
         this._setForm();
@@ -23,8 +23,8 @@ export class MovieCreate{
         this.create = new FormGroup({
             title: new FormControl("", Validators.required),
             genres: new FormControl(""),
-            year: new FormControl(""),
-            runtime_minutes: new FormControl(""),
+            startYear: new FormControl(""),
+            runtimeMinutes: new FormControl(""),
         })
         this.create.valueChanges.subscribe((form:FormGroup) => console.log(form));
     }
@@ -32,7 +32,7 @@ export class MovieCreate{
       submitForm(){
         console.log(this.create?.value);
         if (this.create?.valid){
-            this._movies.create(this.create.value);
+            this._celebrity.create(this.create.value);
             this._router.navigate(['/tabs/movie']);
         }
       }

@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { films } from '../movie.interfaces/movie.interface';
+/*import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
 
@@ -20,7 +19,7 @@ export class MovieDelete{
      ) {
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
-           this._movies.getMovieById(id).subscribe((movies: films)=>this.films=movies);
+           this.films=this._movies.getMovieById(id);
            //this._movies.delete; FUNZIONA LO STESSO
           })
   
@@ -43,4 +42,4 @@ export class MovieDelete{
 
 
 
-     
+     */

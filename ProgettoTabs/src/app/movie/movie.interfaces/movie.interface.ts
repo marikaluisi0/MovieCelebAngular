@@ -2,8 +2,8 @@ export interface films{
     title: string;
     genres: string;
     id: string;
-    startYear: number;
-    runtimeMinutes: number;
-    celebrities?: [];
+    year: number;
+    runningTime: number;
+    cast?: [];
     countries?:[];
 }

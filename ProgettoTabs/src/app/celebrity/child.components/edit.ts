@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+/*import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
@@ -20,8 +20,8 @@ export class CelebrityEdit{
       private readonly _acroute :ActivatedRoute,
      ) {
   
-        this._acroute.paramMap.subscribe(params=>{ 
-          const id: string|null= params.get('id');
+        this._acroute.params.subscribe(params=>{ 
+          const id= params['id'];
            this.celebrity= this._cel.getCelebrityById(id); 
            this._setForm();
         })
@@ -36,6 +36,8 @@ export class CelebrityEdit{
             death: new FormControl(this.celebrity?.deathYear),
             movies:new FormControl(this.celebrity?.movies),
         })
+        this.formCel.valueChanges.subscribe((x)=>{
+          console.log(x);})
       }
 
 
@@ -59,3 +61,4 @@ export class CelebrityEdit{
 
      
 }
+*/

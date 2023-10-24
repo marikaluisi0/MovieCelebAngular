@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { List } from 'src/app/shared/interfaces/list.interface';
 
 
 @Component({
@@ -17,8 +18,6 @@ export class MovieEdit{
    // @Output() filmEdit= new EventEmitter<string>(); //si 
     formUser: FormGroup | undefined;
     films:films|undefined=undefined;
-    
-
 
     constructor(private readonly _movies: MoviesService,
       private readonly _router : Router,
@@ -27,8 +26,13 @@ export class MovieEdit{
      ) {
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
-           this.films=this._movies.getMovieById(id);
-           this._setForm();
+           this._movies.getMovieById(id).subscribe((movies: films)=>{
+            
+            this.films=movies;
+            this._setForm();
+
+          });
+          
           })
 
       
@@ -43,9 +47,9 @@ export class MovieEdit{
             id: new FormControl(this.films?.id),
             title: new FormControl(this.films?.title, Validators.required),
             genres: new FormControl(this.films?.genres),
-            startYear: new FormControl(this.films?.startYear),
-            runtimeMinutes:new FormControl(this.films?.runtimeMinutes),
-            celebrities: new FormControl(this.films?.celebrities),
+            year: new FormControl(this.films?.year),
+            runningTime:new FormControl(this.films?.runningTime),
+            cast: new FormControl(this.films?.cast),
             countries: new FormControl(this.films?.countries),
            })
 
@@ -55,22 +59,12 @@ export class MovieEdit{
         
       }
 
-    
        submitForm(){
         console.log(this.formUser?.value);
         if (this.formUser?.valid){
            this._movies.update(this.formUser?.value);
-            //subscribe(()=>)
             this._router.navigate(['/tabs/movie']);
-            //this._location.back();
-        //)
         }
-
-
-
-
- 
-
  
       }
 

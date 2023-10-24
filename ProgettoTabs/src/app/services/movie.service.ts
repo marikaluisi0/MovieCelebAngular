@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { films } from "../movie/movie.interfaces/movie.interface";
-import { Subject } from "rxjs";
+import { Observable, Subject, map, pluck } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 
 @Injectable({
@@ -8,55 +10,42 @@ import { Subject } from "rxjs";
 })
 
 export class MoviesService {
-   private _subjectM$ = new Subject<films[]>();
-   filmsObs$ = this._subjectM$.asObservable();
-   //ma con un obs non posso usare il next, unica cosa che posso fare, quindi
-   //è la lettura
+    private _subjectM$ = new Subject<films[]>();
+    filmsObs$ = this._subjectM$.asObservable();
+    //ma con un obs non posso usare il next, unica cosa che posso fare, quindi
+    //è la lettura
+    //con l'obs nessuna la legge, quindi uso l'osservatore x legg
 
+    //next=invia un dato
+    //subscribe=lo riceve
 
-    private _lista: films[] =
+    private _baseUrl = '';
 
+    private _lista: films[] = [];
 
+    constructor(private readonly _http: HttpClient) {
+        this._baseUrl = environment.baseUrl;  //recupero l'URL
 
-        [
-            {
-                title: "La vita è bella",
-                genres: "drammatico",
-                id: "film1",
-                startYear: 1997,
-                runtimeMinutes: 200
-            },
-
-            {
-                title: "Alla ricerca della felicità",
-                genres: "drammatico",
-                id: "film2",
-                startYear: 2001,
-                runtimeMinutes: 167
-            },
-
-            {
-                title: "Aladdin",
-                genres: "Cartone animato",
-                id: "film3",
-                startYear: 1999,
-                runtimeMinutes: 120
-            }
-        ]
-
-
-    getMovies(): void {
-        return  this._next();
-        //ok
     }
-//next=invia un dato
-//subscribe=lo riceve
-    getMovieById(id: string): films|undefined {
-      return this._lista.find((_lista:films)=>_lista.id===id);
+
+    private _lunghezzaLista = this._lista.length;
+
+    //get= restituisce sempre un observable
+    //Perchè ha il nome .movies????
+    //serve qui il next? - funziona anche senza-
+    getMovies(): Observable<films[]> {
+        return this._http.get<films[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=20`).pipe(map((result: any) => {
+            this._subjectM$.next(result.movies);
+            return result.movies;
+        }));
+    }
+
+    getMovieById(id: string): Observable<films> {
+        return this._http.get<films>(`${this._baseUrl}/movies/${id}`);
     }
 
     update(filmSelected: films) {
-        
+
         const index = this._getIndex(filmSelected.id);
         if (index !== -1) {
             this._lista[index] = filmSelected;
@@ -64,29 +53,29 @@ export class MoviesService {
         this._next();
     }
 
-    delete(idSelected : string){
+    delete(idSelected: string) {
         const index = this._getIndex(idSelected);
         if (index !== -1) {
-           this._lista.splice(index, 1);   
-           this._next();
-        }
-        }
-
-        create(film: films){
-            //manca solo generazione del id
-            this._lista.push(film);
+            this._lista.splice(index, 1);
             this._next();
         }
-
-         private _getIndex(id: string): number{
-            return this._lista.findIndex((film: films) => film.id === id);
-         }
-
-         private _next(){
-            this._subjectM$.next(this._lista); //serve per l'agg
-         }
-
     }
+
+    create(film: films) {
+        film.id = (this._lunghezzaLista += 1).toString();
+        this._lista.push(film);
+        this._next();
+    }
+
+    private _getIndex(id: string): number {
+        return this._lista.findIndex((film: films) => film.id === id);
+    }
+
+    private _next() {
+        this._subjectM$.next(this._lista); //serve per l'agg
+    }
+
+}
 
 
 

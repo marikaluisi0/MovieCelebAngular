@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MoviesService } from '../services/movie.service';
 import { films } from './movie.interfaces/movie.interface';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { List } from './child.components/list.component';
 
 @Component({
   selector: 'app-movie',
@@ -10,30 +11,20 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 })
 export class MoviePage {
   moviesList: films[] = [];
-  titlePage='Lista dei film';
+  titlePage = 'Lista dei film';
 
   constructor(private readonly _movies: MoviesService,
     private readonly _router: Router,
     private readonly _acroute: ActivatedRoute) {
 
+      //this._movies.filmsObs$.subscribe((moviesList: films[])=>{});
 
-    // this.moviesList = this._movies.getMovies(); //NEL COSTRUTTORE IMPORTANTE!
-    this._movies.filmsObs$.subscribe((films: films[]) => {
+    this._movies.getMovies().subscribe((films: films[]) => { 
+      console.log(films);
       this.moviesList = films;
     });
-    this._movies.getMovies();
-
-
+   
   }
-
-
-  /* private _getFilms(){
-     this.lista=this.moviesService.getList().map((values: Film))=>{
-
-       return 
-     }
-   }*/
-
 
   edit(id: string) { //si
     console.log(id);

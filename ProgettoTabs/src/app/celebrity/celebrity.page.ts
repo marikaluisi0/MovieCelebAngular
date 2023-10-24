@@ -14,54 +14,20 @@ import { Observable } from 'rxjs';
 export class CelebrityPage {
 
   celebritiesList: celebrity[]=[];
-  //array=[10,20,30];
-  //result=from(this.array);
-  
-    observable = new Observable((subscriber) => {
-    subscriber.next(1);
-    subscriber.next(2);
-    subscriber.next(3);
-    setTimeout(() => {
-      subscriber.next(4);
-      subscriber.complete();
-      subscriber.next(5);
-    }, 1000);
-
-
-  });
+  titlePage='Lista delle celebrità';
 
   
-
-
-  
-
-  constructor(private readonly _celebService: CelebritiesService,
+   constructor(private readonly _celebService: CelebritiesService,
     private readonly _router: Router) {
-      this.celebritiesList= this._celebService.getCelebrities();
-      
-      //this.result.subscribe(x=>console.log(x));
-
-      console.log('just before subscribe');
-      this.observable.subscribe({
-    next(x) {
-    console.log('got value ' + x);
-    },
-    error(err) {
-    console.error('something wrong occurred: ' + err);
-    },
-    complete() {
-    console.log('done');
-    },
-    });
-    console.log('just after subscribe');
-
-    }
-
-    ionViewWillEnter(){
+    
+      this._celebService.celebritiesObs$.subscribe((celebrities: celebrity[]) => {
+        this.celebritiesList = celebrities;
+      });
       this._celebService.getCelebrities();
+
     }
 
-    getList(id:string){ 
+   getList(id:string){ 
       console.log(id);  
       this._router.navigate(['tabs', 'celebrity', 'detail', id]);
       }
@@ -71,6 +37,15 @@ export class CelebrityPage {
         this._router.navigate(['tabs', 'celebrity', 'edit', id]);
       }
 
+      delete(id: string) {
+        console.log(id);
+        this._celebService.delete(id);
+      }
+    
+      create() {
+        
+        this._router.navigate(['tabs', 'celebrity', 'create']);
+      }
       
         
       

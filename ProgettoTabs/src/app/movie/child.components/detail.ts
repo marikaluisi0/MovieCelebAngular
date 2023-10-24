@@ -23,8 +23,6 @@ export class MovieDetail{
       })
     }*/
 
-
-   // mov?: films; //opzionale 
     films:films|undefined=undefined;
 
     constructor(private readonly _movies: MoviesService,
@@ -33,7 +31,7 @@ export class MovieDetail{
   
         this._acroute.params.subscribe(params=>{
           const id= params['id'];
-          this.films=this._movies.getMovieById(id);
+          this._movies.getMovieById(id).subscribe((movies: films)=>this.films=movies);
           })
   
       }

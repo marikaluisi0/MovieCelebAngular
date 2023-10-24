@@ -16,10 +16,11 @@ export class CelebrityDetail{
       private readonly _router : Router,
       private readonly _acroute :ActivatedRoute) {
   
-        this._acroute.paramMap.subscribe(params=>{
-          const id: string|null= params.get('id');
-           this.celebrity= this._celebrity.getCelebrityById(id);
-        })
+        this._acroute.params.subscribe(params=>{ 
+          const id= params['id'];
+          this.celebrity=this._celebrity.getCelebrityById(id);
   
-      }
+      })
 }
+}
+

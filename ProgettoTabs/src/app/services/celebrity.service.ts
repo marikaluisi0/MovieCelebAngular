@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { celebrity } from "../shared/interfaces/celebrity.interface";
+import { Subject } from "rxjs";
 
 
 @Injectable({
@@ -8,7 +9,9 @@ import { celebrity } from "../shared/interfaces/celebrity.interface";
 
 export class CelebritiesService {
 
-    lista: celebrity[] =
+    private _subjectC$ = new Subject<celebrity[]>();
+    celebritiesObs$ = this._subjectC$.asObservable();
+    private _lista: celebrity[] =
 
         [
             {
@@ -29,34 +32,49 @@ export class CelebritiesService {
                 birthYear: 1968,
             }
         ]
+        private _lunghezzaLista= this._lista.length;
 
 
 
 
 
-    getCelebrities(): celebrity[] {
-        return this.lista;
+    getCelebrities(): void {
+        return this._next(); 
     }
 
-    getCelebrityById(id: string | null): celebrity {
-        const celeb: celebrity | undefined = this.lista.find(lista => lista.id === id);
-        if (celeb) {
-            return celeb;
-        } else {
-            return {
-                id: "0",
-                primary_name: "",
-                birthYear: 0,
-            }
-        }
-    }
+    getCelebrityById(id: string): celebrity|undefined {
+        return this._lista.find((_lista:celebrity)=>_lista.id===id);}
 
-    update(selectedCel: celebrity): void {
-        const index = this.lista.findIndex((cel: celebrity) => cel.id === selectedCel.id);
+    update(celebritySelected: celebrity) {
+        
+        const index = this._getIndex(celebritySelected.id);
         if (index !== -1) {
-            this.lista[index] = selectedCel;
+            this._lista[index] = celebritySelected;
         }
+        this._next();
     }
+
+    delete(idSelected : string){
+        const index = this._getIndex(idSelected);
+        if (index !== -1) {
+           this._lista.splice(index, 1);   
+           this._next();
+        }
+        }
+
+        create(celebrity: celebrity){
+            celebrity.id=(this._lunghezzaLista+=1).toString();
+            this._lista.push(celebrity);
+            this._next();
+        }
+
+         private _getIndex(id: string): number{
+            return this._lista.findIndex((celebrity: celebrity) => celebrity.id === id);
+         }
+
+         private _next(){
+            this._subjectC$.next(this._lista); 
+         }
 
 
 
