@@ -10,6 +10,7 @@ import { List } from './child.components/list.component';
 import { MovieDetail } from './child.components/detail';
 import { MovieEdit } from './child.components/edit';
 import { MovieDelete } from './child.components/delete';
+import { MovieCreate } from './child.components/create';
 
 @NgModule({
   imports: [
@@ -21,6 +22,6 @@ import { MovieDelete } from './child.components/delete';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [MoviePage, List, MovieDetail, MovieEdit, MovieDelete]
+  declarations: [MoviePage, List, MovieDetail, MovieEdit, MovieDelete, MovieCreate]
 })
 export class MoviePageModule {}

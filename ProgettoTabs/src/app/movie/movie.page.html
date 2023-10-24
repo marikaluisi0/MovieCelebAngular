@@ -3,7 +3,10 @@
     <ion-title>
       Lista di tutti i film
     </ion-title>
-  </ion-toolbar>
+    <ion-buttons (click)="clickCreate()" slot="end">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-buttons> 
+   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">

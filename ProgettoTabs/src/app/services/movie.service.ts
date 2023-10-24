@@ -14,7 +14,6 @@ export class MoviesService {
    //è la lettura
 
 
-
     private _lista: films[] =
 
 
@@ -46,10 +45,6 @@ export class MoviesService {
         ]
 
 
- 
-
-
-
     getMovies(): void {
         return this._subjectM$.next(this._lista); //ok
     }
@@ -74,8 +69,13 @@ export class MoviesService {
            this._subjectM$.next(this._lista); //serve per l'agg
         }
         }
-    }
 
+        create(film: films){
+            
+            this._lista.push(film);
+            this._subjectM$.next(this._lista);
+        }
+    }
 
 
 

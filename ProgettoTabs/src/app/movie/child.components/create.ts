@@ -10,45 +10,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class MovieCreate{
 
-    create: FormGroup | undefined;
-    films:films|undefined=undefined;
-    
 
+    create: FormGroup | undefined;
 
     constructor(private readonly _movies: MoviesService,
-      private readonly _router : Router,
-      private readonly _acroute :ActivatedRoute,
+        private readonly _router: Router
      ) {
-           this._acroute.params.subscribe(params=>{ 
-           const id= params['id'];
-           this.films=this._movies.getMovieById(id);
-           this._setForm();
-          })
-      }
-
-      private _setForm(){
-        this.create = new FormGroup({
-            id: new FormControl(this.films?.id),
-            title1: new FormControl(this.films?.title, Validators.required),
-            genres: new FormControl(this.films?.genres),
-            startYear: new FormControl(this.films?.startYear),
-            runtimeMinutes:new FormControl(this.films?.runtimeMinutes),
-            celebrities: new FormControl(this.films?.celebrities),
-            countries: new FormControl(this.films?.countries),
-           })
-
-           this.create.valueChanges.subscribe((x)=>{
-            console.log(x);
-           })
+        this._setForm();
+          }
         
-      }
+        private _setForm() {
+        this.create = new FormGroup({
+            title1: new FormControl("", Validators.required),
+            genres: new FormControl(""),
+            startYear: new FormControl(""),
+            runtimeMinutes: new FormControl(""),
+        })
+        this.create.valueChanges.subscribe((form:FormGroup) => console.log(form));
+    }
     
       submitForm(){
         console.log(this.create?.value);
         if (this.create?.valid){
-           this._movies.update(this.create?.value);
+            this._movies.create(this.create.value);
             this._router.navigate(['/tabs/movie']);
         }
       }
+
+      
+    
     
 }

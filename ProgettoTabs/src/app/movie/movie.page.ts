@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MoviesService } from '../services/movie.service';
 import { films } from './movie.interfaces/movie.interface';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -10,6 +10,8 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 })
 export class MoviePage {
  moviesList: films[] = [];
+ @Output() filmCreate= new EventEmitter<void>();
+
   constructor(private readonly _movies: MoviesService,
     private readonly _router : Router,
     private readonly _acroute :ActivatedRoute) {
@@ -20,6 +22,8 @@ export class MoviePage {
       this.moviesList = films;
      });
     }
+
+
 
 
 
@@ -50,6 +54,21 @@ delete(id: string){
   console.log(id);
 this._movies.delete(id);
 }
+
+create(){
+ // this._movies.create(film);
+ this._router.navigate(['tabs', 'movie', 'create']);
+}
+
+clickCreate(){
+  console.log("sono qui");
+  this.create();
+  this.filmCreate.emit();
+}
+
+
+
+
 
 
 
