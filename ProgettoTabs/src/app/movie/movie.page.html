@@ -1,3 +1,4 @@
+<!-- AL POSTO DI TUTTO QUESTO, CI METTO IL DECORATORE DEL COMPONENTE
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
     <ion-title>
@@ -7,18 +8,20 @@
       <ion-icon name="add-outline"></ion-icon>
     </ion-buttons> 
    </ion-toolbar>
-</ion-header>
+</ion-header> !-->
+
+<app-header [title]=titlePage [showAdd]="true" [showBack]="false" (addEvent)="create()"></app-header>
+
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Movies</ion-title>
+      <ion-title size="large">{{titlePage}}</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div class="all-movies">
-  <app-list [filmsArray]="moviesList" (film)="edit($event)"  (filmEdit)="modifica($event)" (filmDelete)="delete($event)"></app-list>
-  </div>
+  <app-list [filmsArray]="moviesList" (film)="edit($event)" (filmEdit)="modifica($event)"
+    (filmDelete)="delete($event)"></app-list>
 
 
 

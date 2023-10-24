@@ -10,6 +10,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 })
 export class MoviePage {
   moviesList: films[] = [];
+  titlePage='Lista dei film';
 
   constructor(private readonly _movies: MoviesService,
     private readonly _router: Router,

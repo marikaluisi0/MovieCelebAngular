@@ -1,0 +1,11 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="dark">
+      <ion-buttons *ngIf="showBack" slot="start">
+        <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons *ngIf="showAdd" slot="end">
+            <ion-button (click)="onClickCreate()"><ion-icon name="add-outline"></ion-icon></ion-button>
+        </ion-buttons>
+     </ion-toolbar>
+  </ion-header>
