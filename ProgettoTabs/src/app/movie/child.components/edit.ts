@@ -34,9 +34,6 @@ export class MovieEdit{
           });
           
           })
-
-      
-
   
       }
 
@@ -49,9 +46,6 @@ export class MovieEdit{
             genres: new FormControl(this.films?.genres),
             year: new FormControl(this.films?.year),
             runningTime:new FormControl(this.films?.runningTime),
-            cast: new FormControl(this.films?.cast),
-            countries: new FormControl(this.films?.countries),
-            rating: new FormControl(this.films?.rating),
 
            })
 

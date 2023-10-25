@@ -73,7 +73,7 @@ export class MoviesService {
 
     create(film: FilmsForm): Observable<films>{
         const movieDto:films=this.formToDto(film);
-        return this._http.post<films>(`${this._baseUrl}/movies`,film);
+        return this._http.post<films>(`${this._baseUrl}/movies`,movieDto);
         /*
         film.id = (this._lunghezzaLista += 1).toString();
         this._lista.push(film);

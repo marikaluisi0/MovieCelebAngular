@@ -13,8 +13,8 @@ export class CelebritiesService {
 
     private _subjectC$ = new Subject<celebrity[]>();
     celebritiesObs$ = this._subjectC$.asObservable();
-    private _lista: celebrity[] =[];
-    private _lunghezzaLista= this._lista.length;
+    private _lista: celebrity[] = [];
+    private _lunghezzaLista = this._lista.length;
     private _baseUrl = '';
 
     constructor(private readonly _http: HttpClient) {
@@ -22,7 +22,7 @@ export class CelebritiesService {
     }
 
     getCelebrities(): Observable<celebrity[]> {
-        return this._http.get<celebrity[]>(`${this._baseUrl}/celebrities`).pipe(map((result: any) => {
+        return this._http.get<celebrity[]>(`${this._baseUrl}/celebrities?order_by=id&page=0&size=20`).pipe(map((result: any) => {
             this._subjectC$.next(result.celebrities);
             return result.celebrities;
         }));
@@ -33,19 +33,19 @@ export class CelebritiesService {
     }
 
     update(celebritySelected: celebrity): Observable<celebrity> {
-        
+
         /*const index = this._getIndex(celebritySelected.id);
         if (index !== -1) {
             this._lista[index] = celebritySelected;
         }
         this._next();*/
 
-        return this._http.put<celebrity>(`${this._baseUrl}/celebrities/${celebritySelected.id}`,celebritySelected);
+        return this._http.put<celebrity>(`${this._baseUrl}/celebrities/${celebritySelected.id}`, celebritySelected);
 
 
     }
 
-    delete(idSelected : string): Observable<celebrity>{
+    delete(idSelected: string): Observable<celebrity> {
         /*const index = this._getIndex(idSelected);
         if (index !== -1) {
            this._lista.splice(index, 1);   
@@ -53,24 +53,23 @@ export class CelebritiesService {
         }*/
         return this._http.delete<celebrity>(`${this._baseUrl}/celebrities/${idSelected}`);
 
-        }
+    }
 
-        create(celebrity: celebrity): Observable<celebrity>{
-            /*celebrity.id=(this._lunghezzaLista+=1).toString();
-            this._lista.push(celebrity);
-            this._next();*/
-            
-            //const celebrityDto:celebrity=this.formToDto(celebrity);
-        return this._http.post<celebrity>(`${this._baseUrl}/celebrity`,celebrity);
-        }
+    create(celebrity: celebrity): Observable<celebrity> {
+        /*celebrity.id=(this._lunghezzaLista+=1).toString();
+        this._lista.push(celebrity);
+        this._next();*/
 
-         private _getIndex(id: string): number{
-            return this._lista.findIndex((celebrity: celebrity) => celebrity.id === id);
-         }
+        return this._http.post<celebrity>(`${this._baseUrl}/celebrities`, celebrity);
+    }
 
-         private _next(){
-            this._subjectC$.next(this._lista); 
-         }
+    private _getIndex(id: string): number {
+        return this._lista.findIndex((celebrity: celebrity) => celebrity.id === id);
+    }
+
+    private _next() {
+        this._subjectC$.next(this._lista);
+    }
 
 
 

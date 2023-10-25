@@ -1,13 +1,5 @@
+<app-header [title]=titlePage [showAdd]="true" [showBack]="false" (addEvent)="create()"></app-header> 
 
-
-<!-- <app-header [title]=titlePage [showAdd]="true" [showBack]="false" (addEvent)="create()"></app-header> -->
-<ion-header [translucent]="true">
-  <ion-toolbar color="dark">
-    <ion-title>
-      Lista di tutte le celebrità
-    </ion-title>
-   </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -17,9 +9,7 @@
   </ion-header>
 
   <div>
-    <app-list-cel [celebritiesArray]="celebritiesList" (celebrity)="getList($event)"  (celebrityEdit)="modifica($event)"  ></app-list-cel>
-
-
+    <app-list-cel [celebritiesArray]="celebritiesList" (celebrity)="getList($event)"  (celebrityEdit)="modifica($event)" (celebrityDelete)="delete($event)" ></app-list-cel>
   </div>
 
 

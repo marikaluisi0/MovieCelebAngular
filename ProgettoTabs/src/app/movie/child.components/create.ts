@@ -25,7 +25,9 @@ export class MovieCreate {
       title: new FormControl("", Validators.required),
       genres: new FormControl(""),
       year: new FormControl(""),
-      runtime_minutes: new FormControl(""),
+      runningTime: new FormControl(""),
+      averageRating:new FormControl("", Validators.required),
+      numVotes: new FormControl("", Validators.required)
     })
     this.create.valueChanges.subscribe((form: FormGroup) => console.log(form));
   }
@@ -33,8 +35,10 @@ export class MovieCreate {
   submitForm() {
     console.log(this.create?.value);
     if (this.create?.valid) {
-      this._movies.create(this.create.value);
-      this._router.navigate(['/tabs/movie']);
+      this._movies.create(this.create.value).subscribe((filmSelected: films)=>{
+        this._router.navigate(['/tabs/movie']);
+       });
+    
     }
   }
 

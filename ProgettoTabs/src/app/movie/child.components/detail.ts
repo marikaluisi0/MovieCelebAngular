@@ -24,6 +24,7 @@ export class MovieDetail{
     }*/
 
     films:films|undefined=undefined;
+  
 
     constructor(private readonly _movies: MoviesService,
       private readonly _router : Router,

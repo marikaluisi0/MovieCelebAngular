@@ -11,6 +11,7 @@ import { CelebrityDetail } from './child.components/detail';
 import { CelebrityEdit } from './child.components/edit';
 import { CelebrityDelete } from './child.components/delete';
 import { CelebrityCreate } from './child.components/create';
+import { HeaderModule } from '../shared/components/header/headerModule';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { CelebrityCreate } from './child.components/create';
     ExploreContainerComponentModule,
     CelebrityPageRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HeaderModule
   ],
   declarations: [CelebrityPage, List, CelebrityDetail,CelebrityEdit, CelebrityDelete, CelebrityCreate]
 })

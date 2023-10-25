@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CelebritiesService } from 'src/app/services/celebrity.service';
+import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 
 @Component({
   selector: 'app-celebrity-create',
@@ -20,10 +21,10 @@ export class CelebrityCreate {
  
   private _setForm() {
     this.create = new FormGroup({
+      id: new FormControl("", Validators.required),
       name: new FormControl("", Validators.required),
       birthYear: new FormControl(""),
       deathYear: new FormControl(""),
-      movies: new FormControl(""),
     })
     this.create.valueChanges.subscribe((form: FormGroup) => console.log(form));
   }
@@ -31,10 +32,13 @@ export class CelebrityCreate {
   submitForm() {
     console.log(this.create?.value);
     if (this.create?.valid) {
-      this._celebrity.create(this.create.value);
-      this._router.navigate(['/tabs/celebrity']);
+      this._celebrity.create(this.create.value).subscribe((ris: celebrity)=>{
+        this._router.navigate(['/tabs/celebrity']);
+      });
     }
   }
+
+  
 
 
 

@@ -37,7 +37,6 @@ export class CelebrityEdit {
       name: new FormControl(this.celebrity?.name, Validators.required),
       birth: new FormControl(this.celebrity?.birthYear),
       death: new FormControl(this.celebrity?.deathYear),
-      movies: new FormControl(this.celebrity?.movies),
     })
     this.formCel.valueChanges.subscribe((x) => {
       console.log(x);

@@ -11,8 +11,12 @@
           <ion-card-subtitle>{{films.genres}}</ion-card-subtitle>
           <ion-card-subtitle>{{films.year}}</ion-card-subtitle>
           <ion-card-subtitle>{{films.runningTime}}</ion-card-subtitle>
-          <ion-card-subtitle>{{films.cast}}</ion-card-subtitle>
-          <ion-card-subtitle>{{films.countries}}</ion-card-subtitle>
-          <ion-card-subtitle>{{films.rating.averageRating}}</ion-card-subtitle>
+          <ion-card-subtitle *ngFor="let cast of films.cast">{{cast.celebrityName}}</ion-card-subtitle> 
+          <ion-card-subtitle *ngFor="let countries of films.countries">{{countries.title}}</ion-card-subtitle>
+          <ion-card-subtitle>{{films.rating.averageRating}} {{films.rating.numVotes}}</ion-card-subtitle>
         </ion-card-header>
       </ion-card>
+
+
+      
+      
