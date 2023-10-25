@@ -28,6 +28,17 @@ export class CelebrityPage {
 
     }
 
+    private _getCelebrities(){
+      this._celebService.getCelebrities().subscribe((result: celebrity[]) => { 
+      console.log(result);
+      this.celebritiesList = result;
+    });
+  }
+
+    ionViewWillEnter(){
+      this._getCelebrities();
+    }
+
    getList(id:string){ 
       console.log(id);  
       this._router.navigate(['tabs', 'celebrity', 'detail', id]);
@@ -40,7 +51,7 @@ export class CelebrityPage {
 
       delete(id: string) {
         console.log(id);
-        this._celebService.delete(id);
+        this._celebService.delete(id).subscribe((result:celebrity)=>{this._getCelebrities();});
       }
     
       create() {

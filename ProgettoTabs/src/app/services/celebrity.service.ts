@@ -32,27 +32,36 @@ export class CelebritiesService {
         return this._http.get<celebrity>(`${this._baseUrl}/celebrities/${id}`);
     }
 
-    update(celebritySelected: celebrity) {
+    update(celebritySelected: celebrity): Observable<celebrity> {
         
-        const index = this._getIndex(celebritySelected.id);
+        /*const index = this._getIndex(celebritySelected.id);
         if (index !== -1) {
             this._lista[index] = celebritySelected;
         }
-        this._next();
+        this._next();*/
+
+        return this._http.put<celebrity>(`${this._baseUrl}/celebrities/${celebritySelected.id}`,celebritySelected);
+
+
     }
 
-    delete(idSelected : string){
-        const index = this._getIndex(idSelected);
+    delete(idSelected : string): Observable<celebrity>{
+        /*const index = this._getIndex(idSelected);
         if (index !== -1) {
            this._lista.splice(index, 1);   
            this._next();
-        }
+        }*/
+        return this._http.delete<celebrity>(`${this._baseUrl}/celebrities/${idSelected}`);
+
         }
 
-        create(celebrity: celebrity){
-            celebrity.id=(this._lunghezzaLista+=1).toString();
+        create(celebrity: celebrity): Observable<celebrity>{
+            /*celebrity.id=(this._lunghezzaLista+=1).toString();
             this._lista.push(celebrity);
-            this._next();
+            this._next();*/
+            
+            //const celebrityDto:celebrity=this.formToDto(celebrity);
+        return this._http.post<celebrity>(`${this._baseUrl}/celebrity`,celebrity);
         }
 
          private _getIndex(id: string): number{
