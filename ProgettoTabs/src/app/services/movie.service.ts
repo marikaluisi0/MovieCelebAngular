@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { films } from "../movie/movie.interfaces/movie.interface";
+import { FilmsForm, films } from "../movie/movie.interfaces/movie.interface";
 import { Observable, Subject, map, pluck } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
@@ -30,6 +30,11 @@ export class MoviesService {
 
     private _lunghezzaLista = this._lista.length;
 
+
+   
+
+    
+
     //get= restituisce sempre un observable
     //Perchè ha il nome .movies????
     //serve qui il next? - funziona anche senza-
@@ -44,28 +49,37 @@ export class MoviesService {
         return this._http.get<films>(`${this._baseUrl}/movies/${id}`);
     }
 
-    update(filmSelected: films) {
+    update(filmSelected: films): Observable<films> {
 
-        const index = this._getIndex(filmSelected.id);
-        if (index !== -1) {
+        //const index = this._getIndex(filmSelected.id);
+        /*if (index !== -1) {
             this._lista[index] = filmSelected;
         }
-        this._next();
-    }
+        this._next();*/
 
-    delete(idSelected: string) {
-        const index = this._getIndex(idSelected);
+        return this._http.put<films>(`${this._baseUrl}/movies/${filmSelected.id}`,filmSelected);
+        }
+
+    
+
+    delete(idSelected: string) : Observable<films> {
+        /*const index = this._getIndex(idSelected);
         if (index !== -1) {
             this._lista.splice(index, 1);
             this._next();
-        }
+        }*/
+        return this._http.delete<films>(`${this._baseUrl}/movies/${idSelected}`);
     }
 
-    create(film: films) {
+    create(film: FilmsForm): Observable<films>{
+        const movieDto:films=this.formToDto(film);
+        return this._http.post<films>(`${this._baseUrl}/movies`,film);
+        /*
         film.id = (this._lunghezzaLista += 1).toString();
         this._lista.push(film);
-        this._next();
+        this._next(); */
     }
+   
 
     private _getIndex(id: string): number {
         return this._lista.findIndex((film: films) => film.id === id);
@@ -75,7 +89,25 @@ export class MoviesService {
         this._subjectM$.next(this._lista); //serve per l'agg
     }
 
+
+    formToDto(createdMovie: FilmsForm): films{
+        return{
+                rating: {averageRating: createdMovie.averageRating, 
+                        numVotes: createdMovie.numVotes},
+                id: createdMovie.id,
+                title: createdMovie.title,
+                genres: createdMovie.genres,
+                year: createdMovie.year,
+                runningTime: createdMovie.runningTime
+        }
+    }
 }
+
+
+   
+
+
+
 
 
 

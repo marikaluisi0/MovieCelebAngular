@@ -29,10 +29,19 @@ export class MovieDetail{
       private readonly _router : Router,
       private readonly _acroute :ActivatedRoute) {
   
-        this._acroute.params.subscribe(params=>{
+        //SONO EQUIVALENTI
+          /*this._acroute.params.subscribe(params=>{
           const id= params['id'];
           this._movies.getMovieById(id).subscribe((movies: films)=>this.films=movies);
-          })
+          })*/
+
+          this._acroute.paramMap.subscribe(params=>{
+            const id: string| null=params.get('id');
+            if (id){
+              this._movies.getMovieById(id).subscribe((data:films)=>
+              this.films=data);}})
+
+          
   
       }
 }

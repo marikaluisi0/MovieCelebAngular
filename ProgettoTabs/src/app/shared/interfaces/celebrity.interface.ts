@@ -1,3 +1,4 @@
+
 export interface celebrity{
     id:string;
     name:string;

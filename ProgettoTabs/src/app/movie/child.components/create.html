@@ -5,10 +5,12 @@
     <ion-title></ion-title>
   </ion-toolbar>
 
-
-
-
 <form *ngIf="create" class="form"[formGroup]="create" (ngSubmit)="submitForm()" novalidate>
+
+    <div>
+        <ion-label color="secondary" position="floating">Id del film</ion-label>
+        <ion-input formControlName="id" type="text"></ion-input>
+    </div>
 
     <div>
         <ion-label color="secondary" position="floating">Nome del film</ion-label>

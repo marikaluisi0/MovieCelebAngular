@@ -51,6 +51,8 @@ export class MovieEdit{
             runningTime:new FormControl(this.films?.runningTime),
             cast: new FormControl(this.films?.cast),
             countries: new FormControl(this.films?.countries),
+            rating: new FormControl(this.films?.rating),
+
            })
 
            this.formUser.valueChanges.subscribe((x)=>{
@@ -62,8 +64,9 @@ export class MovieEdit{
        submitForm(){
         console.log(this.formUser?.value);
         if (this.formUser?.valid){
-           this._movies.update(this.formUser?.value);
+           this._movies.update(this.formUser?.value).subscribe((filmSelected: films)=>{
             this._router.navigate(['/tabs/movie']);
+           });
         }
  
       }

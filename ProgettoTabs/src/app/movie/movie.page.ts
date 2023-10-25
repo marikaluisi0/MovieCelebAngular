@@ -9,6 +9,8 @@ import { List } from './child.components/list.component';
   templateUrl: 'movie.page.html',
   styleUrls: ['movie.page.scss']
 })
+
+//CONCETTI: UN OBSERVABLE HA SEMPRE UN OSSERVATORE DA QUALCHE ALTRA PARTE, UN SUBSCRIBE!!!
 export class MoviePage {
   moviesList: films[] = [];
   titlePage = 'Lista dei film';
@@ -17,13 +19,26 @@ export class MoviePage {
     private readonly _router: Router,
     private readonly _acroute: ActivatedRoute) {
 
-      //this._movies.filmsObs$.subscribe((moviesList: films[])=>{});
+    //this._movies.filmsObs$.subscribe((moviesList: films[])=>{});
 
-    this._movies.getMovies().subscribe((films: films[]) => { 
+    this._movies.getMovies().subscribe((films: films[]) => {
       console.log(films);
       this.moviesList = films;
     });
-   
+
+  }
+
+  private _getList() {
+    this._movies.getMovies().subscribe((films: films[]) => {
+      console.log(films);
+      this.moviesList = films;
+    });
+  }
+
+  //MI SERVE PER FAR RIAGGIORNARE LA LISTA QUANDO RITORNO ALLA ROTTA /MOVIE, se resto mi serve la _getList()
+  ionViewWillEnter() {
+    this._getList();
+
   }
 
   edit(id: string) { //si
@@ -38,7 +53,7 @@ export class MoviePage {
 
   delete(id: string) {
     console.log(id);
-    this._movies.delete(id);
+    this._movies.delete(id).subscribe((selectedMovie: films) => { this._getList(); });
   }
 
   create() {
