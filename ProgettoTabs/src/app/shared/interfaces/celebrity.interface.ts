@@ -1,5 +1,5 @@
 
-export interface celebrity {
+export interface Celebrity {
     id: string;
     name: string;
     birthYear: number;

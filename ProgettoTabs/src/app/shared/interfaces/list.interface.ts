@@ -1,4 +1,5 @@
-export interface List{
-    id: string, 
-    name:string;
-} 
+export interface ListItems  {
+    id:string;
+    text:string;
+}
+

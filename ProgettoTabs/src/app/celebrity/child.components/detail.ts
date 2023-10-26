@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CelebritiesService } from 'src/app/services/celebrity.service';
-import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
+import { Celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 })
 export class CelebrityDetail{
 
-  celebrity?: celebrity; //opzionale 
+  celebrity?: Celebrity; //opzionale 
 
     constructor(private readonly _celebrity: CelebritiesService,
       private readonly _router : Router,
@@ -18,7 +18,7 @@ export class CelebrityDetail{
   
         this._acroute.params.subscribe(params=>{ 
           const id= params['id'];
-          this._celebrity.getCelebrityById(id).subscribe((cel: celebrity)=>this.celebrity=cel);
+          this._celebrity.getCelebrityById(id).subscribe((cel: Celebrity)=>this.celebrity=cel);
   
       })
 }

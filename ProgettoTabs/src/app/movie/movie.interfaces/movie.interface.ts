@@ -4,7 +4,7 @@ export enum Category{//specificarlo con string (es: writer="writer") o number, d
     Director
 }
 
-export interface films extends FilmBase{ //interface con maiuscolo
+export interface Films extends FilmBase{ //interface con maiuscolo
     genres: string;
     year: number;
     runningTime: number;

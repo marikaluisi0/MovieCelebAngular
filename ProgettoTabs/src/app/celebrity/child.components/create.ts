@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CelebritiesService } from 'src/app/services/celebrity.service';
-import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
+import { Celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 
 @Component({
   selector: 'app-celebrity-create',
@@ -32,7 +32,7 @@ export class CelebrityCreate {
   submitForm() {
     console.log(this.create?.value);
     if (this.create?.valid) {
-      this._celebrity.create(this.create.value).subscribe((ris: celebrity)=>{
+      this._celebrity.create(this.create.value).subscribe((ris: Celebrity)=>{
         this._router.navigate(['/tabs/celebrity']);
       });
     }

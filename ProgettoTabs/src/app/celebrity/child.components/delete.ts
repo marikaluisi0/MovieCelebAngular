@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CelebritiesService } from 'src/app/services/celebrity.service';
-import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
+import { Celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 })
 export class CelebrityDelete {
 
-    celebrities: celebrity | undefined = undefined;
+    celebrities: Celebrity | undefined = undefined;
 
 
 
@@ -20,7 +20,7 @@ export class CelebrityDelete {
     ) {
         this._acroute.params.subscribe(params => {
             const id = params['id'];
-            this._celebrityService.getCelebrityById(id).subscribe((celebrities: celebrity) => {
+            this._celebrityService.getCelebrityById(id).subscribe((celebrities: Celebrity) => {
                 this.celebrities = celebrities;
             });
         })

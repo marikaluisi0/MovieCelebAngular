@@ -7,10 +7,7 @@ const routes: Routes = [
     path: 'tabs',
     component: TabsPage,
     children: [
-      {
-        path: 'list',
-        loadChildren: () => import('../movie/child.components/list.component').then(m => m.List)
-      },
+      
       {
         path: 'movie',
         loadChildren: () => import('../movie/movie.module').then(m => m.MoviePageModule)

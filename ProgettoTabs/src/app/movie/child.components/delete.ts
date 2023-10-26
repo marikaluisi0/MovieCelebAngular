@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { films } from '../movie.interfaces/movie.interface';
+import { Films } from '../movie.interfaces/movie.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
 
@@ -10,7 +10,7 @@ import { MoviesService } from 'src/app/services/movie.service';
 })
 export class MovieDelete {
 
-    films: films | undefined = undefined;
+    films: Films | undefined = undefined;
 
 
 
@@ -20,7 +20,7 @@ export class MovieDelete {
     ) {
         this._acroute.params.subscribe(params => {
             const id = params['id'];
-            this._movies.getMovieById(id).subscribe((movies: films) => {
+            this._movies.getMovieById(id).subscribe((movies: Films) => {
                 this.films = movies;
             });
         })

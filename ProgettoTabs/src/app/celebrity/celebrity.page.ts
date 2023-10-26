@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { celebrity } from '../shared/interfaces/celebrity.interface';
+import { Celebrity } from '../shared/interfaces/celebrity.interface';
 import { CelebritiesService } from '../services/celebrity.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ListItems } from '../shared/interfaces/list.interface';
 ///import { from } from 'rxjs';
 
 
@@ -13,57 +14,56 @@ import { Observable } from 'rxjs';
 })
 export class CelebrityPage {
 
-  celebritiesList: celebrity[]=[];
-  titlePage='Lista delle celebrità';
+  celebritiesList: ListItems[] = [];
+  titlePage = 'Lista delle celebrità';
 
-  
-   constructor(private readonly _celebService: CelebritiesService,
+
+  constructor(private readonly _celebService: CelebritiesService,
     private readonly _router: Router) {
-    
-      this._celebService.getCelebrities().subscribe((result: celebrity[]) => { 
-        console.log(result);
-        this.celebritiesList = result;
-      });
-      
+    this._getCelebrities();
+  }
 
-    }
-
-    private _getCelebrities(){
-      this._celebService.getCelebrities().subscribe((result: celebrity[]) => { 
+  private _getCelebrities(): void {
+    this._celebService.getCelebrities().subscribe((result: Celebrity[]) => {
       console.log(result);
-      this.celebritiesList = result;
+      this.celebritiesList = result.map((element: Celebrity) => {
+        return {
+          id: element.id,
+          text: element.name,
+        };
+      });;
     });
   }
 
-    ionViewWillEnter(){
-      this._getCelebrities();
-    }
+  ionViewWillEnter() {
+    this._getCelebrities();
+  }
 
-   getList(id:string){ 
-      console.log(id);  
-      this._router.navigate(['tabs', 'celebrity', 'detail', id]);
-      }
+  getList(item: ListItems): void {
+    console.log(item.id);
+    this._router.navigate(['tabs', 'celebrity', 'detail', item.id]);
+  }
 
-      modifica(id: string){
-        console.log(id);
-        this._router.navigate(['tabs', 'celebrity', 'edit', id]);
-      }
+  modifica(item: ListItems): void {
+    console.log(item.id);
+    this._router.navigate(['tabs', 'celebrity', 'edit', item.id]);
+  }
 
-      delete(id: string) {
-        console.log(id);
-        this._celebService.delete(id).subscribe((result:celebrity)=>{this._getCelebrities();});
-      }
-    
-      create() {
-        
-        this._router.navigate(['tabs', 'celebrity', 'create']);
-      }
-      
-        
-      
+  delete(item: ListItems) {
+    console.log(item.id);
+    this._celebService.delete(item.id).subscribe((result: Celebrity) => { this._getCelebrities(); });
+  }
+
+  create(): void {
+
+    this._router.navigate(['tabs', 'celebrity', 'create']);
+  }
+
+
+
 
 }
-    
+
 
 
 

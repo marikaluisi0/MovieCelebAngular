@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { celebrity } from 'src/app/shared/interfaces/celebrity.interface';
+import { Celebrity } from 'src/app/shared/interfaces/celebrity.interface';
 import { CelebritiesService } from 'src/app/services/celebrity.service';
 
 
@@ -12,7 +12,7 @@ import { CelebritiesService } from 'src/app/services/celebrity.service';
 export class CelebrityEdit {
 
 
-  celebrity?: celebrity;
+  celebrity?: Celebrity;
   formCel: FormGroup | undefined;
 
   constructor(private readonly _cel: CelebritiesService,
@@ -22,7 +22,7 @@ export class CelebrityEdit {
 
     this._acroute.params.subscribe(params => {
       const id = params['id'];
-      this._cel.getCelebrityById(id).subscribe((celebrities: celebrity) => {
+      this._cel.getCelebrityById(id).subscribe((celebrities: Celebrity) => {
 
         this.celebrity = celebrities;
         this._setForm();
@@ -48,7 +48,7 @@ export class CelebrityEdit {
   submitForm() {
     console.log(this.formCel?.value);
     if (this.formCel?.valid) {
-      this._cel.update(this.formCel?.value).subscribe((ris: celebrity) => {
+      this._cel.update(this.formCel?.value).subscribe((ris: Celebrity) => {
         this._router.navigate(['/tabs/celebrity']);
       });
     }

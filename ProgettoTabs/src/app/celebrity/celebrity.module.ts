@@ -6,12 +6,12 @@ import { CelebrityPage } from './celebrity.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import {  CelebrityPageRoutingModule } from './celebrity-routing.module';
-import { List } from './child.components/list.component';
 import { CelebrityDetail } from './child.components/detail';
 import { CelebrityEdit } from './child.components/edit';
 import { CelebrityDelete } from './child.components/delete';
 import { CelebrityCreate } from './child.components/create';
 import { HeaderModule } from '../shared/components/header/headerModule';
+import { ListModule } from '../shared/components/list/list.module';
 
 @NgModule({
   imports: [
@@ -22,8 +22,9 @@ import { HeaderModule } from '../shared/components/header/headerModule';
     CelebrityPageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HeaderModule
+    HeaderModule,
+    ListModule
   ],
-  declarations: [CelebrityPage, List, CelebrityDetail,CelebrityEdit, CelebrityDelete, CelebrityCreate]
+  declarations: [CelebrityPage, CelebrityDetail,CelebrityEdit, CelebrityDelete, CelebrityCreate]
 })
 export class CelebrityPageModule {}
