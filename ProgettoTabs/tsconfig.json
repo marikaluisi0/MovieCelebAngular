@@ -22,6 +22,10 @@
       "es2018", 
       "dom"
     ],
+    "paths":{
+      "@resolvers":["ProgettoTabs/src/app/resolvers"
+      ]
+    },
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Celebrity } from '../shared/interfaces/celebrity.interface';
 import { CelebritiesService } from '../services/celebrity.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ListItems } from '../shared/interfaces/list.interface';
-///import { from } from 'rxjs';
 
 
 @Component({
@@ -12,14 +11,15 @@ import { ListItems } from '../shared/interfaces/list.interface';
   templateUrl: 'celebrity.page.html',
   styleUrls: ['celebrity.page.scss']
 })
-export class CelebrityPage {
+export class CelebrityPage /*implements OnInit*/ {
 
   celebritiesList: ListItems[] = [];
   titlePage = 'Lista delle celebrità';
 
 
   constructor(private readonly _celebService: CelebritiesService,
-    private readonly _router: Router) {
+    private readonly _router: Router,
+    private readonly _acRoute: ActivatedRoute) {
     this._getCelebrities();
   }
 
@@ -34,6 +34,13 @@ export class CelebrityPage {
       });;
     });
   }
+
+  /*ngOnInit() {
+    this._acRoute.data.subscribe(({ celebrity }) => {
+      console.log("prova");
+    })
+  }*/
+
 
   ionViewWillEnter() {
     this._getCelebrities();

@@ -32,7 +32,9 @@ export class MoviesService {
 
 
    
-
+    getId(films: Films):string{
+        return films.id; 
+    }
     
 
     //get= restituisce sempre un observable

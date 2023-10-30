@@ -12,6 +12,7 @@ import { CelebrityDelete } from './child.components/delete';
 import { CelebrityCreate } from './child.components/create';
 import { HeaderModule } from '../shared/components/header/headerModule';
 import { ListModule } from '../shared/components/list/list.module';
+import { Resolver } from '../resolvers/_resolver.service';
 
 @NgModule({
   imports: [
@@ -23,8 +24,8 @@ import { ListModule } from '../shared/components/list/list.module';
     FormsModule,
     ReactiveFormsModule,
     HeaderModule,
-    ListModule
+    ListModule,
   ],
-  declarations: [CelebrityPage, CelebrityDetail,CelebrityEdit, CelebrityDelete, CelebrityCreate]
+  declarations: [CelebrityPage, CelebrityDetail,CelebrityEdit, CelebrityDelete, CelebrityCreate],
 })
 export class CelebrityPageModule {}

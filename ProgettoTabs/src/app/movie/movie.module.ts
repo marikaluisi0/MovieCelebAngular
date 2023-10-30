@@ -22,8 +22,7 @@ import { ListModule } from '../shared/components/list/list.module';
     FormsModule,
     ReactiveFormsModule,
     HeaderModule,
-    ListModule
-  ],
-  declarations: [MoviePage, MovieDetail, MovieEdit, MovieDelete, MovieCreate]
+    ListModule,],
+  declarations: [MoviePage, MovieDetail, MovieEdit, MovieDelete, MovieCreate],
 })
 export class MoviePageModule {}
