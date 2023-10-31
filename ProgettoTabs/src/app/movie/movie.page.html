@@ -14,6 +14,8 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-range aria-label="Range with ionChange"  min="0" max="10" (ionChange)="onIonChange($event)"></ion-range>
+
   <app-list 
   [items]="moviesList" 
   (details)="edit($event)" 

@@ -2,61 +2,146 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MoviesService } from '../services/movie.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ListItems } from '../shared/interfaces/list.interface';
-import { Films } from './movie.interfaces/movie.interface';
+import { Film } from './movie.interfaces/movie.interface';
+import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
+import { RangeCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-movie',
   templateUrl: 'movie.page.html',
-  styleUrls: ['movie.page.scss']
+  styleUrls: ['movie.page.scss'],
 })
 
 //CONCETTI: UN OBSERVABLE HA SEMPRE UN OSSERVATORE DA QUALCHE ALTRA PARTE, UN SUBSCRIBE!!!
 export class MoviePage {
+  list: ListItems[] = []; //proprietà per lista non filtrata
   moviesList: ListItems[] = [];
   pageTitle = 'Lista dei film';
+  ratingRange$= new BehaviorSubject<number>(0); //istanzio una BS che all'inizio ha già valore per rating con 0
 
-  constructor(private readonly _movies: MoviesService,
+  constructor(
+    private readonly _movies: MoviesService,
     private readonly _router: Router,
-    private readonly _acroute: ActivatedRoute) {
-    this._getList();
-
+    private readonly _acroute: ActivatedRoute
+  ) {
+    //this.onInitialMoviesList();
+    //this._getListRating();
   }
 
-  private _getList(): void {
-    this._movies.getMovies().subscribe((films: Films[]) => {
+   /*private _getList(): void {
+    this._movies.getMovies().subscribe((films: Film[]) => {
       console.log(films);
-      this.moviesList = films.map((element: Films) => {
+      this.moviesList = films.map(({ id, title, rating }) => {
         return {
-          id: element.id,
-          text: element.title,
+          id,
+          text: title,
+          rating: rating.averageRating,
         };
-      });;
+      });
     });
-  }
+  }*/
 
   //MI SERVE PER FAR RIAGGIORNARE LA LISTA QUANDO RITORNO ALLA ROTTA /MOVIE, se resto mi serve la _getList()
-  ionViewWillEnter(): void {
-    this._getList();
+ /* ionViewWillEnter(): void {
+    this._getListRating();
+  }*/
 
-  }
-
-  edit(item: ListItems): void { //si
+  edit(item: ListItems): void {
+    //si
     console.log(item.id);
     this._router.navigate(['tabs', 'movie', 'detail', item.id]);
   }
 
-  modifica(item: ListItems): void { //mi modifica il film
+  modifica(item: ListItems): void {
+    //mi modifica il film
     console.log(item.id);
     this._router.navigate(['tabs', 'movie', 'edit', item.id]);
   }
 
   delete(item: ListItems): void {
     console.log(item.id);
-    this._movies.delete(item.id).subscribe((selectedMovie: Films) => { this._getList(); });
+    this._movies.delete(item.id).subscribe((selectedMovie: Film) => {
+      //this._getList();
+    });
   }
 
   create(): void {
     this._router.navigate(['tabs', 'movie', 'create']);
+  }
+
+
+
+  //E' il metodo che mappa i film e visualizza anche la votazione media>5
+  /*private _getListRating(value = 0): void {
+    /*this._movies
+      .getMovies()
+      .pipe(
+        map((movies) =>
+          movies.filter((movie) => movie.rating.averageRating >= value)
+        ),
+        map((elements: Film[]) => {
+          return elements.map(({ id, title, rating }) => {
+            return {
+              id,
+              text: title,
+              rating: rating.averageRating / 10,
+            };
+          });
+        })
+      )
+      .subscribe((films) => {
+        console.log(films);
+        this.moviesList = films;
+      });*/
+   /* this.moviesList = this.list
+      .filter((movie) => {movie.rating.averageRating >= value})
+      .map(({ id, title, rating }) => {
+        return {
+          id,
+          text: title,
+          rating: rating.averageRating / 10,
+        };
+      });
+  }*/
+
+  /*onInitialMoviesList() {
+    this._movies.getMovies().subscribe((movies) => {
+      this.list = movies;
+    });
+  } */
+
+  ionViewWillEnter(){
+    combineLatest({
+    movieList: this._movies.getMovies(),
+    rating: this.ratingRange$,
+  }).subscribe(({movieList, rating})=>{
+    this.list=movieList.map((element)=>{
+      return {
+        id: element.id,
+        text: element.title,
+        rating: element.rating.averageRating / 10,
+      };
+    });
+    this._getMoviesWithAvgRating(rating);
+  });}
+
+
+private _getMoviesWithAvgRating(rating: number){
+  this.moviesList=this.list.filter(
+    (movie)=>(movie.rating||0)> rating/10  );
+
+}
+
+  //E' il metodo che mappa i film e visualizza anche la votazione media da slider
+  onIonChange(ev: Event) {
+    console.log(
+      'ionChange emitted value:',
+      (ev as RangeCustomEvent).detail.value
+    );
+    //const valore = (ev as RangeCustomEvent).detail.value;
+    //console.log(valore);
+    // this._getListRating(valore as number);
+    this.ratingRange$.next(Number((ev as RangeCustomEvent).detail.value));
   }
 
 

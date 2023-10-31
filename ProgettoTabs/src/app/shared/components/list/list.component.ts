@@ -1,33 +1,29 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListItems } from '../../interfaces/list.interface'
+import { ListItems } from '../../interfaces/list.interface';
+import { RangeCustomEvent } from '@ionic/angular';
 
 @Component({
-    selector: 'app-list',
-    templateUrl: 'list.html'
+  selector: 'app-list',
+  templateUrl: 'list.html',
 })
-
-
 export class ListComponent {
+  @Input() items: ListItems[] = [];
+  @Output() details = new EventEmitter<ListItems>();
+  @Output() edit = new EventEmitter<ListItems>();
+  @Output() delete = new EventEmitter<ListItems>();
 
 
 
-    @Input() items: ListItems[] = [];
-    @Output() details = new EventEmitter<ListItems>();
-    @Output() edit = new EventEmitter<ListItems>();
-    @Output() delete = new EventEmitter<ListItems>();
 
+  detailsItem(item: ListItems) {
+    this.details.emit(item);
+  }
 
-    detailsItem(item: ListItems) {
-        this.details.emit(item);
-    }
+  editItem(item: ListItems) {
+    this.edit.emit(item);
+  }
 
-    editItem(item: ListItems) {
-        this.edit.emit(item);
-    }
-
-    deleteItem(item: ListItems) {
-        this.delete.emit(item);
-    }
+  deleteItem(item: ListItems) {
+    this.delete.emit(item);
+  }
 }
-
-

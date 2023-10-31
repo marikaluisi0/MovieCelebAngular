@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Films } from '../movie.interfaces/movie.interface';
+import { Film } from '../movie.interfaces/movie.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ export class MovieEdit{
     //mov?: films; //?=opzionale 
    // @Output() filmEdit= new EventEmitter<string>(); //si 
     formUser: FormGroup | undefined;
-    films:Films|undefined=undefined;
+    films:Film|undefined=undefined;
 
     constructor(private readonly _movies: MoviesService,
       private readonly _router : Router,
@@ -25,7 +25,7 @@ export class MovieEdit{
      ) {
            this._acroute.params.subscribe(params=>{ 
            const id= params['id'];
-           this._movies.getMovieById(id).subscribe((movies: Films)=>{
+           this._movies.getMovieById(id).subscribe((movies: Film)=>{
             
             this.films=movies;
             this._setForm();
@@ -57,7 +57,7 @@ export class MovieEdit{
        submitForm(){
         console.log(this.formUser?.value);
         if (this.formUser?.valid){
-           this._movies.update(this.formUser?.value).subscribe((filmSelected: Films)=>{
+           this._movies.update(this.formUser?.value).subscribe((filmSelected: Film)=>{
             this._router.navigate(['/tabs/movie']);
            });
         }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FilmsForm, Films } from "../movie/movie.interfaces/movie.interface";
+import { FilmsForm, Film } from "../movie/movie.interfaces/movie.interface";
 import { Observable, Subject, map, pluck } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
@@ -10,7 +10,7 @@ import { environment } from "src/environments/environment";
 })
 
 export class MoviesService {
-    private _subjectM$ = new Subject<Films[]>();
+    private _subjectM$ = new Subject<Film[]>();
     filmsObs$ = this._subjectM$.asObservable();
     //ma con un obs non posso usare il next, unica cosa che posso fare, quindi
     //è la lettura
@@ -21,7 +21,7 @@ export class MoviesService {
 
     private _baseUrl = '';
 
-    private _lista: Films[] = [];
+    private _lista: Film[] = [];
 
     constructor(private readonly _http: HttpClient) {
         this._baseUrl = environment.baseUrl;  //recupero l'URL
@@ -32,26 +32,25 @@ export class MoviesService {
 
 
    
-    getId(films: Films):string{
+    getId(films: Film):string{
         return films.id; 
     }
     
 
-    //get= restituisce sempre un observable
-    //Perchè ha il nome .movies????
-    //serve qui il next? - funziona anche senza-
-    getMovies(): Observable<Films[]> {
-        return this._http.get<Films[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=20`).pipe(map((result: any) => {
+    getMovies(): Observable<Film[]> {
+        return this._http.get<Film[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=20`).pipe(map((result: any) => {
             this._subjectM$.next(result.movies);
             return result.movies;
         }));
     }
 
-    getMovieById(id: string): Observable<Films> {
-        return this._http.get<Films>(`${this._baseUrl}/movies/${id}`);
+    
+
+    getMovieById(id: string): Observable<Film> {
+        return this._http.get<Film>(`${this._baseUrl}/movies/${id}`);
     }
 
-    update(filmSelected: Films): Observable<Films> {
+    update(filmSelected: Film): Observable<Film> {
 
         //const index = this._getIndex(filmSelected.id);
         /*if (index !== -1) {
@@ -59,23 +58,23 @@ export class MoviesService {
         }
         this._next();*/
 
-        return this._http.put<Films>(`${this._baseUrl}/movies/${filmSelected.id}`,filmSelected);
+        return this._http.put<Film>(`${this._baseUrl}/movies/${filmSelected.id}`,filmSelected);
         }
 
     
 
-    delete(idSelected: string) : Observable<Films> {
+    delete(idSelected: string) : Observable<Film> {
         /*const index = this._getIndex(idSelected);
         if (index !== -1) {
             this._lista.splice(index, 1);
             this._next();
         }*/
-        return this._http.delete<Films>(`${this._baseUrl}/movies/${idSelected}`);
+        return this._http.delete<Film>(`${this._baseUrl}/movies/${idSelected}`);
     }
 
-    create(film: FilmsForm): Observable<Films>{
-        const movieDto:Films=this.formToDto(film);
-        return this._http.post<Films>(`${this._baseUrl}/movies`,movieDto);
+    create(film: FilmsForm): Observable<Film>{
+        const movieDto:Film=this.formToDto(film);
+        return this._http.post<Film>(`${this._baseUrl}/movies`,movieDto);
         /*
         film.id = (this._lunghezzaLista += 1).toString();
         this._lista.push(film);
@@ -84,7 +83,7 @@ export class MoviesService {
    
 
     private _getIndex(id: string): number {
-        return this._lista.findIndex((film: Films) => film.id === id);
+        return this._lista.findIndex((film: Film) => film.id === id);
     }
 
     private _next() {
@@ -92,7 +91,7 @@ export class MoviesService {
     }
 
 
-    formToDto(createdMovie: FilmsForm): Films{
+    formToDto(createdMovie: FilmsForm): Film{
         return{
                 rating: {averageRating: createdMovie.averageRating, 
                         numVotes: createdMovie.numVotes},

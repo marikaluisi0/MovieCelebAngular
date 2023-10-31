@@ -35,12 +35,6 @@ export class CelebrityPage /*implements OnInit*/ {
     });
   }
 
-  /*ngOnInit() {
-    this._acRoute.data.subscribe(({ celebrity }) => {
-      console.log("prova");
-    })
-  }*/
-
 
   ionViewWillEnter() {
     this._getCelebrities();
@@ -66,6 +60,9 @@ export class CelebrityPage /*implements OnInit*/ {
     this._router.navigate(['tabs', 'celebrity', 'create']);
   }
 
+
+
+  
 
 
 

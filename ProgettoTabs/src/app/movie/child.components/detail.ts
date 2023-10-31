@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { Films } from '../movie.interfaces/movie.interface';
+import { Film } from '../movie.interfaces/movie.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movie.service';
 
@@ -23,7 +23,7 @@ export class MovieDetail{
       })
     }*/
 
-    films:Films|undefined=undefined;
+    films:Film|undefined=undefined;
   
 
     constructor(private readonly _movies: MoviesService,
@@ -39,7 +39,7 @@ export class MovieDetail{
           this._acroute.paramMap.subscribe(params=>{
             const id: string| null=params.get('id');
             if (id){
-              this._movies.getMovieById(id).subscribe((data:Films)=>
+              this._movies.getMovieById(id).subscribe((data:Film)=>
               this.films=data);}})
 
           
