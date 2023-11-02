@@ -3,8 +3,11 @@ import { MoviesService } from '../services/movie.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ListItems } from '../shared/interfaces/list.interface';
 import { Film } from './movie.interfaces/movie.interface';
-import { BehaviorSubject, Observable, combineLatest, filter, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, combineLatest, filter, map, timer } from 'rxjs';
 import { RangeCustomEvent } from '@ionic/angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { interval } from 'rxjs';
+import { debounceTime, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie',
@@ -18,6 +21,10 @@ export class MoviePage {
   moviesList: ListItems[] = [];
   pageTitle = 'Lista dei film';
   ratingRange$ = new BehaviorSubject<number>(0); //istanzio una BS che all'inizio ha già valore per rating con 0
+  research!: FormGroup;
+  research$= new Subject<string>();
+
+
 
   constructor(
     private readonly _movies: MoviesService,
@@ -26,6 +33,13 @@ export class MoviePage {
   ) {
     //this.onInitialMoviesList();
     //this._getListRating();
+    /// non mi serve inizializzare il form se uso "!" 
+    this.research = new FormGroup({
+      ricerca: new FormControl("", Validators.required)
+    })
+    this.researchByTitle();
+  
+
   }
 
   /*private _getList(): void {
@@ -141,4 +155,31 @@ export class MoviePage {
     // this._getListRating(valore as number);
     this.ratingRange$.next(Number((ev as RangeCustomEvent).detail.value));
   }
+
+  
+
+  researchByTitle() {
+    this.research = new FormGroup({
+        ricerca:new FormControl()
+    });
+
+    this.research.get('ricerca')?.valueChanges.pipe(
+      debounceTime(500),
+      switchMap((title:string)=>this._movies.getMoviesByTitle(title)))
+      .subscribe((data)=>this.moviesList=data.map((element) => {
+        return {
+          id: element.id,
+          text: element.title,
+          rating: element.rating.averageRating / 10,
+        };
+      }))
+}
+
+
+
+ 
+
+
+
+ 
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListItems } from '../../interfaces/list.interface';
 import { RangeCustomEvent } from '@ionic/angular';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +13,7 @@ export class ListComponent {
   @Output() edit = new EventEmitter<ListItems>();
   @Output() delete = new EventEmitter<ListItems>();
 
-
+  
 
 
   detailsItem(item: ListItems) {
@@ -26,4 +27,6 @@ export class ListComponent {
   deleteItem(item: ListItems) {
     this.delete.emit(item);
   }
+
+  
 }

@@ -1,47 +1,58 @@
-export enum Category{//specificarlo con string (es: writer="writer") o number, dipendendo dal back-end
-    Writer,
-    Actor,
-    Director
+export enum Category { //specificarlo con string (es: writer="writer") o number, dipendendo dal back-end
+  Writer,
+  Actor,
+  Director,
 }
 
-export interface Film extends FilmBase{ //interface con maiuscolo
-    genres: string;
-    year: number;
-    runningTime: number;
-    cast?: Cast[];
-    countries?: Countries[];
-    rating: Rating; 
+export interface ResponseDto<T = any> { 
+  movies: T[];
+  pagination: {
+    currentPage: number;
+    pageSize: number;
+    totalElements: number;
+    totalPages: number;
+  };
 }
 
-export interface FilmsForm extends FilmBase{
-    genres: string,
-    year: number;
-    runningTime: number;
-    averageRating:number,
-    numVotes: number;
+export interface Film extends FilmBase {
+  //interface con maiuscolo
+  genres: string;
+  year: number;
+  runningTime: number;
+  cast?: Cast[];
+  countries?: Countries[];
+  rating: Rating;
 }
 
-export interface Cast{
-    celebrityId: string,
-    celebrityName: string,
-    movieTitle?:string,
-    movieId: string,
-    category?:Category;
+export interface FilmsForm extends FilmBase {
+  genres: string;
+  year: number;
+  runningTime: number;
+  averageRating: number;
+  numVotes: number;
 }
 
-export interface Rating{
-    averageRating:number,
-    numVotes: number;
+export interface Cast {
+  celebrityId: string;
+  celebrityName: string;
+  movieTitle?: string;
+  movieId: string;
+  category?: Category;
 }
 
-export interface Countries{
-    title: string;
-    region: string;
-    language: string;
+export interface Rating {
+  averageRating: number;
+  numVotes: number;
 }
 
-export interface FilmBase{   //la possiamo poi estendere perchè sono proprietà sempre presenti
-    id: string,
-    title:string;
+export interface Countries {
+  title: string;
+  region: string;
+  language: string;
 }
 
+export interface FilmBase {
+  //la possiamo poi estendere perchè sono proprietà sempre presenti
+  id: string;
+  title: string;
+}
