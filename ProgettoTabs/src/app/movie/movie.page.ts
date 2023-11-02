@@ -17,7 +17,7 @@ export class MoviePage {
   list: ListItems[] = []; //proprietà per lista non filtrata
   moviesList: ListItems[] = [];
   pageTitle = 'Lista dei film';
-  ratingRange$= new BehaviorSubject<number>(0); //istanzio una BS che all'inizio ha già valore per rating con 0
+  ratingRange$ = new BehaviorSubject<number>(0); //istanzio una BS che all'inizio ha già valore per rating con 0
 
   constructor(
     private readonly _movies: MoviesService,
@@ -28,7 +28,7 @@ export class MoviePage {
     //this._getListRating();
   }
 
-   /*private _getList(): void {
+  /*private _getList(): void {
     this._movies.getMovies().subscribe((films: Film[]) => {
       console.log(films);
       this.moviesList = films.map(({ id, title, rating }) => {
@@ -42,7 +42,7 @@ export class MoviePage {
   }*/
 
   //MI SERVE PER FAR RIAGGIORNARE LA LISTA QUANDO RITORNO ALLA ROTTA /MOVIE, se resto mi serve la _getList()
- /* ionViewWillEnter(): void {
+  /* ionViewWillEnter(): void {
     this._getListRating();
   }*/
 
@@ -69,8 +69,6 @@ export class MoviePage {
     this._router.navigate(['tabs', 'movie', 'create']);
   }
 
-
-
   //E' il metodo che mappa i film e visualizza anche la votazione media>5
   /*private _getListRating(value = 0): void {
     /*this._movies
@@ -93,7 +91,7 @@ export class MoviePage {
         console.log(films);
         this.moviesList = films;
       });*/
-   /* this.moviesList = this.list
+  /* this.moviesList = this.list
       .filter((movie) => {movie.rating.averageRating >= value})
       .map(({ id, title, rating }) => {
         return {
@@ -110,27 +108,27 @@ export class MoviePage {
     });
   } */
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     combineLatest({
-    movieList: this._movies.getMovies(),
-    rating: this.ratingRange$,
-  }).subscribe(({movieList, rating})=>{
-    this.list=movieList.map((element)=>{
-      return {
-        id: element.id,
-        text: element.title,
-        rating: element.rating.averageRating / 10,
-      };
+      movieList: this._movies.getMovies(),
+      rating: this.ratingRange$,
+    }).subscribe(({ movieList, rating }) => {
+      this.list = movieList.map((element) => {
+        return {
+          id: element.id,
+          text: element.title,
+          rating: element.rating.averageRating / 10,
+        };
+      });
+      this._getMoviesWithAvgRating(rating);
     });
-    this._getMoviesWithAvgRating(rating);
-  });}
+  }
 
-
-private _getMoviesWithAvgRating(rating: number){
-  this.moviesList=this.list.filter(
-    (movie)=>(movie.rating||0)> rating/10  );
-
-}
+  private _getMoviesWithAvgRating(rating: number) {
+    this.moviesList = this.list.filter(
+      (movie) => (movie.rating || 0) > rating / 10
+    );
+  }
 
   //E' il metodo che mappa i film e visualizza anche la votazione media da slider
   onIonChange(ev: Event) {
@@ -143,6 +141,4 @@ private _getMoviesWithAvgRating(rating: number){
     // this._getListRating(valore as number);
     this.ratingRange$.next(Number((ev as RangeCustomEvent).detail.value));
   }
-
-
 }

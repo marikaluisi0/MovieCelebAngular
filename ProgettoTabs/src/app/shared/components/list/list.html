@@ -1,9 +1,9 @@
 <ion-content color="light">
     <ion-list [inset]="true">
-      <ion-item-sliding *ngFor="let item of items">
+      <ion-item-sliding *ngFor="let item of items | orderBy:'rating'">
         <ion-item [button]="true" (click)="detailsItem(item)"> 
           <ion-label>{{ item.text }}</ion-label> 
-          <ion-label>{{ item.rating }}</ion-label> 
+          <ion-label>{{ item.rating! |toInt:1 }}</ion-label> 
           <ion-icon name="chevron-forward-outline"></ion-icon>
         </ion-item>
             <ion-progress-bar slot="end" *ngIf="item.rating" [value]="item.rating"></ion-progress-bar>
