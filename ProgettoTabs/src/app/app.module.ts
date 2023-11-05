@@ -11,7 +11,7 @@ import { ToIntPipe } from './shared/pipes/to-int.pipe';
 import { NgclassdirDirective } from './ngclassdir.directive';
 
 @NgModule({
-  declarations: [AppComponent, NgclassdirDirective],
+  declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

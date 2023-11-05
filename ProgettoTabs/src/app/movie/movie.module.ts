@@ -11,8 +11,6 @@ import { MovieDelete } from './child.components/delete';
 import { MovieCreate } from './child.components/create';
 import { HeaderModule } from '../shared/components/header/headerModule';
 import { ListModule } from '../shared/components/list/list.module';
-import { ProgressBar } from '../shared/components/progressbar.wrapper/progressbar.component';
-import { RangeBarComponent } from '../shared/components/rangebar.wrapper/rangebar.component';
 
 @NgModule({
   imports: [

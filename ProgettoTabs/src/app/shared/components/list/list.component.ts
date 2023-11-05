@@ -33,4 +33,9 @@ export class ListComponent {
     console.log((e as RangeCustomEvent).detail.value);
     this.movieRatingSliderValue.emit((e as RangeCustomEvent).detail.value);
   }
+
+  pinFormatter(value: number) {
+    return value / 10;
+  }
+
 }
