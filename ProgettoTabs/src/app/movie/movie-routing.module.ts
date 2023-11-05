@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: 'detail/:id', 
    component: MovieDetail,
-   canActivate:[Guardian] 
+  // canActivate:[Guardian] 
 
  },
  {

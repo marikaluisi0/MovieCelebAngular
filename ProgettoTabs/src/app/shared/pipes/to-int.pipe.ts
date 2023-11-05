@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ToIntPipe implements PipeTransform {
 
-  transform(value: number, fixValue: number): string {
+  transform(value: number, fixValue: number): number {
     //parseInt(value);
-    return (value*10).toFixed(fixValue);
+    return Number((value*10).toFixed(fixValue));
   }
 
 }

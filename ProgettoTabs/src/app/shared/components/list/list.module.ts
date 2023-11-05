@@ -5,22 +5,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ToIntPipe } from 'src/app/shared/pipes/to-int.pipe';
 import { OrderByPipe } from '../../pipes/order-by-rating.pipe';
+import { RangeBarComponent } from '../rangebar.wrapper/rangebar.component';
+import { ProgressBar } from '../progressbar.wrapper/progressbar.component';
 
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-
-
-  ],
-  declarations: [
-    ListComponent, ToIntPipe, OrderByPipe
-  ],
-  exports: [
-    ListComponent
-  ]
+    declarations: [
+        ListComponent, ToIntPipe, OrderByPipe, RangeBarComponent, ProgressBar
+    ],
+    exports: [
+        ListComponent
+    ],
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+    ]
 })
 export class ListModule { }
 

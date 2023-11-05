@@ -24,7 +24,7 @@ import { Resolver } from '../resolvers/_resolver.service';
     FormsModule,
     ReactiveFormsModule,
     HeaderModule,
-    ListModule,
+    ListModule
   ],
   declarations: [CelebrityPage, CelebrityDetail,CelebrityEdit, CelebrityDelete, CelebrityCreate],
 })

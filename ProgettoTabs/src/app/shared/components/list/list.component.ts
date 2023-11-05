@@ -1,19 +1,20 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListItems } from '../../interfaces/list.interface';
 import { RangeCustomEvent } from '@ionic/angular';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { RangeValue } from '@ionic/core';
 @Component({
   selector: 'app-list',
   templateUrl: 'list.html',
+  styleUrls: ['list.scss'],
+
 })
 export class ListComponent {
   @Input() items: ListItems[] = [];
   @Output() details = new EventEmitter<ListItems>();
   @Output() edit = new EventEmitter<ListItems>();
   @Output() delete = new EventEmitter<ListItems>();
+  @Output() movieRatingSliderValue = new EventEmitter<RangeValue>();
 
-  
 
 
   detailsItem(item: ListItems) {
@@ -28,5 +29,8 @@ export class ListComponent {
     this.delete.emit(item);
   }
 
-  
+  movieRatingSliderChange(e: Event) {
+    console.log((e as RangeCustomEvent).detail.value);
+    this.movieRatingSliderValue.emit((e as RangeCustomEvent).detail.value);
+  }
 }
