@@ -6,7 +6,7 @@
       <ion-item [button]="true" (click)="detailsItem(item)">
         <ion-label
           ><h1 class="title">
-            <span appNgclassdir="(item.rating| toInt:1) <=  5"
+            <span [appNgclassdir]="(item.rating| toInt:1) <=  5"
               >{{ item.text }}</span
             >
             <!--[class.questo-film-fa-cagare]="(item.rating | toInt:1) <=  5"-->
