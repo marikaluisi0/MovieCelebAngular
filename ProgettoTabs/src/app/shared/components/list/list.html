@@ -1,28 +1,29 @@
-<app-range (ionChange)="movieRatingSliderChange($event)"> </app-range>
+<app-range (ionChange)="ratingItem($event)"></app-range>
 
 <ion-content color="light">
   <ion-list [inset]="true">
     <ion-item-sliding *ngFor="let item of items | orderBy:'rating'">
       <ion-item [button]="true" (click)="detailsItem(item)">
+
         <ion-label
-          ><h1 class="title">
-            <span [appNgclassdir]="(item.rating| toInt:1) <=  5"
-              >{{ item.text }}</span
+          ><h1 class="title" [questoFilmFaSchifo]="(item.rating| toInt:1) <=  5">
+            <span>{{ item.text }}</span
             >
             <!--[class.questo-film-fa-cagare]="(item.rating | toInt:1) <=  5"-->
 
             <!-- <span [ngClass]="questo-film-fa-cagare:(item.rating | toInt:1)">{{ item.text }}</span> -->
           </h1>
+
           <span></span
         ></ion-label>
         <ion-label class="ion-text-wrap" slot="end">
           <p class="year">{{item.year}}</p>
           <p class="rating">{{ item.rating! |toInt:1 }}</p>
         </ion-label>
-        <ion-label>{{item.attori}}</ion-label>
+        <ion-label *ngFor="let a of item.attori">{{a.celebrityName}}</ion-label>
       </ion-item>
 
-      <app-progress-bar [barValue]="item.rating"></app-progress-bar>
+      <app-progress-bar [value]="(item.rating| toInt:1)"></app-progress-bar>
 
       <!-- <ion-progress-bar
         slot="end"

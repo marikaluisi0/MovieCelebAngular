@@ -10,9 +10,6 @@ export class RangeBarComponent{
     sliderColor:string="danger";
     constructor(){}
     
-    pinFormatter(value:number) {
-        return value/10;
-    }
     RatingSliderChangeEmit(e:Event){
         this.setRangeColor(Number((e as RangeCustomEvent).detail.value))
         this.sliderValueChanged.emit((e as RangeCustomEvent).detail.value);

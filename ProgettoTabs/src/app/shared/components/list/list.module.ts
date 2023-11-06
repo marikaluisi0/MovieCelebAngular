@@ -21,6 +21,8 @@ import { NgclassdirDirective } from 'src/app/ngclassdir.directive';
         IonicModule,
         CommonModule,
         FormsModule,
+        FormsModule,
+        ReactiveFormsModule,
     ]
 })
 export class ListModule { }

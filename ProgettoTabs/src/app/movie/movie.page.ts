@@ -12,9 +12,9 @@ import {
   map,
   timer,
 } from 'rxjs';
-import { RangeCustomEvent } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { debounceTime, startWith, switchMap } from 'rxjs/operators';
+import { RangeValue } from '@ionic/core';
 
 @Component({
   selector: 'app-movie',
@@ -30,8 +30,6 @@ export class MoviePage {
   pageTitle = 'Lista dei film';
   ratingRange$ = new BehaviorSubject<number>(0); //istanzio una BS che all'inizio ha già valore per rating con 0
   research!: FormGroup;
-  research$ = new Subject<string>();
-
 
   constructor(
     private readonly _movies: MoviesService,
@@ -44,7 +42,10 @@ export class MoviePage {
     this.research = new FormGroup({
       ricerca: new FormControl('', Validators.required),
     });
-    this.researchByTitle();
+    // this.researchByTitle();
+    this.ratingRange$.subscribe((selectedDecimalRating) =>
+      this.updateRatingFilteredMovieList(selectedDecimalRating)
+    );
   }
 
   /*private _getList(): void {
@@ -88,45 +89,6 @@ export class MoviePage {
     this._router.navigate(['tabs', 'movie', 'create']);
   }
 
-  //E' il metodo che mappa i film e visualizza anche la votazione media>5
-  /*private _getListRating(value = 0): void {
-    /*this._movies
-      .getMovies()
-      .pipe(
-        map((movies) =>
-          movies.filter((movie) => movie.rating.averageRating >= value)
-        ),
-        map((elements: Film[]) => {
-          return elements.map(({ id, title, rating }) => {
-            return {
-              id,
-              text: title,
-              rating: rating.averageRating / 10,
-            };
-          });
-        })
-      )
-      .subscribe((films) => {
-        console.log(films);
-        this.moviesList = films;
-      });*/
-  /* this.moviesList = this.list
-      .filter((movie) => {movie.rating.averageRating >= value})
-      .map(({ id, title, rating }) => {
-        return {
-          id,
-          text: title,
-          rating: rating.averageRating / 10,
-        };
-      });
-  }*/
-
-  /*onInitialMoviesList() {
-    this._movies.getMovies().subscribe((movies) => {
-      this.list = movies;
-    });
-  } */
-
   ionViewWillEnter() {
     combineLatest({
       movieList: this._movies.getMovies(),
@@ -135,10 +97,18 @@ export class MoviePage {
       this.list = movieList.map((element) => {
         return {
           id: element.id,
-              text: element.title,
-              rating: element.rating.averageRating / 10,
-              year: element.year,
-              attori:element.cast?.map(ris => ris.celebrityName).join()
+          text: element.title,
+          rating: element.rating.averageRating / 10,
+          year: element.year,
+          attori: element.cast?.map((cast) => {
+            return {
+              celebrityName: cast.celebrityName,
+              celebrityId: cast.celebrityId,
+              movieTitle: cast.movieTitle,
+              movieId: cast.movieId,
+              category: cast.category,
+            };
+          }),
         };
       });
       this._getMoviesWithAvgRating(rating);
@@ -152,16 +122,13 @@ export class MoviePage {
   }
 
   //E' il metodo che mappa i film e visualizza anche la votazione media da slider
-  onIonChange_(ev: Event) {
+  /* onIonChange(ev: Event) {
     console.log(
       'ionChange emitted value:',
       (ev as RangeCustomEvent).detail.value
     );
-    //const valore = (ev as RangeCustomEvent).detail.value;
-    //console.log(valore);
-    // this._getListRating(valore as number);
     this.ratingRange$.next(Number((ev as RangeCustomEvent).detail.value));
-  }
+  }*/
 
   researchByTitle() {
     this.research = new FormGroup({
@@ -172,9 +139,33 @@ export class MoviePage {
       .get('ricerca')
       ?.valueChanges.pipe(
         debounceTime(500),
-        switchMap((title: string) => this._movies.getMoviesByTitle(title))
+        switchMap((title: string) => this._movies.getMoviesByTitle(title)),
+        switchMap((movies: Film[]) => {
+          this.list = movies.map((movie) => {
+            return {
+              id: movie.id,
+              text: movie.title,
+              rating: movie.rating.averageRating,
+              year: movie.year,
+              attori: movie.cast?.map((cast) => {
+                return {
+                  celebrityName: cast.celebrityName,
+                  celebrityId: cast.celebrityId,
+                  movieTitle: cast.movieTitle,
+                  movieId: cast.movieId,
+                  category: cast.category,
+                };
+              }),
+            };
+          });
+          return this.ratingRange$;
+        })
       )
-      .subscribe(
+      .subscribe((rating) => {
+        this.updateRatingFilteredMovieList(rating);
+      });
+
+    /*.subscribe(
         (data) =>
           (this.moviesList = data.map((element) => {
             return {
@@ -182,11 +173,19 @@ export class MoviePage {
               text: element.title,
               rating: element.rating.averageRating / 10,
               year: element.year,
-              attori:element.cast?.map(element => element.celebrityName).join()
             };
           }))
-      );
+      );*/
   }
 
+  setMovieSearchRating(rating: RangeValue) {
+    const decimalRating = Number(rating) / 10;
+    this.ratingRange$.next(decimalRating);
+  }
 
+  updateRatingFilteredMovieList(selectedDecimalRating: number): void {
+    this.moviesList = this.list.filter(
+      (movie) => (movie.rating || 0) >= selectedDecimalRating
+    );
+  }
 }

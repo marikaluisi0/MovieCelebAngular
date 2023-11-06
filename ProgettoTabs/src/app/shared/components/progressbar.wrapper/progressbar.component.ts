@@ -1,20 +1,26 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-progress-bar',
   templateUrl: 'progressbar.html',
 })
 export class ProgressBar implements OnInit, OnChanges {
-  @Input() barValue: number = 0;
+  @Input() value: number = 0;
   barColor: string = '';
   constructor() {}
   ngOnInit(): void {
-    this.setBarColor(this.barValue);
+    this.setBarColor(this.value);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.barValue/= 10;
-    this.setBarColor(this.barValue);
+    this.value /= 10;
+    this.setBarColor(this.value);
   }
 
   setBarColor(value: number) {

@@ -4,7 +4,7 @@ export interface ListItems  {
     id:string;
     text:string;
     rating?:number;
-    attori?:string;
+    attori?:Cast[];
     year?:number;
 }
 

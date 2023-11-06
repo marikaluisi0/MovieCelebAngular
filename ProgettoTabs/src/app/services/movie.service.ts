@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FilmsForm, Film, ResponseDto } from "../movie/movie.interfaces/movie.interface";
-import { Observable, Subject, map, pluck } from "rxjs";
+import { Observable, Subject, map} from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 

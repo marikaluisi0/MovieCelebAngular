@@ -13,7 +13,7 @@ export class ListComponent {
   @Output() details = new EventEmitter<ListItems>();
   @Output() edit = new EventEmitter<ListItems>();
   @Output() delete = new EventEmitter<ListItems>();
-  @Output() movieRatingSliderValue = new EventEmitter<RangeValue>();
+  @Output() rating = new EventEmitter<RangeValue>();
 
 
 
@@ -29,13 +29,9 @@ export class ListComponent {
     this.delete.emit(item);
   }
 
-  movieRatingSliderChange(e: Event) {
+  ratingItem(e: Event) {
     console.log((e as RangeCustomEvent).detail.value);
-    this.movieRatingSliderValue.emit((e as RangeCustomEvent).detail.value);
-  }
-
-  pinFormatter(value: number) {
-    return value / 10;
+    this.rating.emit((e as RangeCustomEvent).detail.value);
   }
 
 }
