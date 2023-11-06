@@ -1,3 +1,6 @@
+
+
+
 <app-range (ionChange)="ratingItem($event)"></app-range>
 
 <ion-content color="light">
@@ -9,11 +12,7 @@
           ><h1 class="title">
             <span [minRating]="5" [questoFilmFaSchifo]="item.rating | toInt:1">{{ item.text }}</span
             >
-            <!--[class.questo-film-fa-cagare]="(item.rating | toInt:1) <=  5"-->
-
-            <!-- <span [ngClass]="questo-film-fa-cagare:(item.rating | toInt:1)">{{ item.text }}</span> -->
           </h1>
-
           <span *ngFor="let a of item.attori" class="actors"> {{a.celebrityName}} - </span
         ></ion-label>
         <ion-label class="ion-text-wrap" slot="end">
@@ -22,13 +21,7 @@
         </ion-label>
       </ion-item>
 
-      <app-progress-bar [value]="(item.rating | toInt:1)"></app-progress-bar>
-
-      <!-- <ion-progress-bar
-        slot="end"
-        *ngIf="item.rating"
-        [value]="item.rating"
-      ></ion-progress-bar> -->
+      <app-progress-bar [value]="item.rating | toInt:1"></app-progress-bar>
 
       <ion-item-options slot="end">
         <ion-item-option color="warning">

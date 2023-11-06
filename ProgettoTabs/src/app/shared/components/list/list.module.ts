@@ -8,6 +8,7 @@ import { OrderByPipe } from '../../pipes/order-by-rating.pipe';
 import { ProgressBar } from '../progressbar.wrapper/progressbar.component';
 import { RangeBarComponent } from '../rangebar.wrapper/rangebar.component';
 import { NgclassdirDirective } from 'src/app/ngclassdir.directive';
+import { FooterComponent } from '../footer.wrapper/footer.component';
 
 
 @NgModule({

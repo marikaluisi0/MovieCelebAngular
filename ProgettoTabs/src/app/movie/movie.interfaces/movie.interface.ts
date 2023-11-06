@@ -15,7 +15,6 @@ export interface ResponseDto<T = any> {
 }
 
 export interface Film extends FilmBase {
-  //interface con maiuscolo
   genres: string;
   year: number;
   runningTime: number;

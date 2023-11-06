@@ -7,31 +7,23 @@
 </app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Movies</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <!--
-  <ion-range
-    aria-label="Range with ionChange"
-    min="0"
-    max="10"
-    (ionChange)="onIonChange_($event)"
-  ></ion-range> -->
+   <div class="search"><form [formGroup]="research">
+    <ion-searchbar formControlName="ricerca" type="text" placeholder="Cerca film:"></ion-searchbar>
+  </form></div> 
 
-  <form [formGroup]="research">
-    <ion-label>Cerca film: </ion-label>
-    <ion-input formControlName="ricerca" type="text" />
-  </form>
+
+  
 
  <app-list
     [items]="moviesList"
     (details)="edit($event)"
     (edit)="modifica($event)"
     (delete)="delete($event)"
+    (rating)="setMovieSearchRating($event)"
   >
   </app-list> 
+
+ 
 
   

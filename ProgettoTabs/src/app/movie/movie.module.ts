@@ -11,6 +11,7 @@ import { MovieDelete } from './child.components/delete';
 import { MovieCreate } from './child.components/create';
 import { HeaderModule } from '../shared/components/header/headerModule';
 import { ListModule } from '../shared/components/list/list.module';
+import { FooterComponent } from '../shared/components/footer.wrapper/footer.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,6 @@ import { ListModule } from '../shared/components/list/list.module';
     HeaderModule,
     ListModule
   ],
-  declarations: [MoviePage, MovieDetail, MovieEdit, MovieDelete, MovieCreate],
+  declarations: [MoviePage, MovieDetail, MovieEdit, MovieDelete, MovieCreate, FooterComponent],
 })
 export class MoviePageModule {}

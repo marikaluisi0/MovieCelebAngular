@@ -1,0 +1,19 @@
+<ion-footer *ngIf="movieDetail">
+    <ion-item
+      button
+      detail="true"
+      detail-icon="caret-forward-outline"
+      (click)="seeMovieDetail(movieDetail.id)"
+    >
+      <ion-label>
+        <h1>{{ movieDetail.title }}</h1>
+        <p>
+          <span>Anno: {{ movieDetail.year }} ||</span
+          ><span *ngFor="let celebrity of movieDetail.cast"
+            ></span
+          ><span> Sceneggiatura: </span
+          ><span *ngFor="let celebrity of movieDetail.cast"></span>
+
+      </ion-label>
+    </ion-item>
+  </ion-footer>

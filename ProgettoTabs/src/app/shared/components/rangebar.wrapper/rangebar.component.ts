@@ -4,6 +4,8 @@ import { RangeCustomEvent, RangeValue } from "@ionic/core";
 @Component({
     selector:'app-range',
     templateUrl:'range.html',
+    styleUrls: ['bar.scss']
+
 })
 export class RangeBarComponent{
     @Output() sliderValueChanged = new EventEmitter<RangeValue>

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListItems } from '../../interfaces/list.interface';
 import { RangeCustomEvent } from '@ionic/angular';
 import { RangeValue } from '@ionic/core';
+import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-list',
   templateUrl: 'list.html',
@@ -14,6 +15,9 @@ export class ListComponent {
   @Output() edit = new EventEmitter<ListItems>();
   @Output() delete = new EventEmitter<ListItems>();
   @Output() rating = new EventEmitter<RangeValue>();
+  research!: FormGroup;
+
+  
 
 
 
@@ -29,9 +33,9 @@ export class ListComponent {
     this.delete.emit(item);
   }
 
-  ratingItem(e: Event) {
-    console.log((e as RangeCustomEvent).detail.value);
-    this.rating.emit((e as RangeCustomEvent).detail.value);
+  ratingItem(event: Event) {
+    console.log((event as RangeCustomEvent).detail.value);
+    this.rating.emit((event as RangeCustomEvent).detail.value);
   }
 
 }
