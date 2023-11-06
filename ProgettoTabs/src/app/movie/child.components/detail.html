@@ -1,9 +1,9 @@
 <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button default-href="#list.html"></ion-back-button>
+      <ion-back-button default-href="#list"></ion-back-button>
     </ion-buttons>
     <ion-title></ion-title>
-  </ion-toolbar>
+  </ion-toolbar> 
 
     <ion-card color="secondary" *ngIf="films">
         <ion-card-header>
@@ -11,7 +11,7 @@
           <ion-card-subtitle>{{films.genres}}</ion-card-subtitle>
           <ion-card-subtitle>{{films.year}}</ion-card-subtitle>
           <ion-card-subtitle>{{films.runningTime}}</ion-card-subtitle>
-          <ion-card-subtitle *ngFor="let cast of films.cast">{{cast.celebrityName}}</ion-card-subtitle> 
+          <ion-card-subtitle *ngFor="let cast of films.cast" [routerLink]="['/tabs/celebrity/detail/',cast.celebrityId ]">{{cast.celebrityName}}</ion-card-subtitle>  
           <ion-card-subtitle *ngFor="let countries of films.countries">{{countries.title}}</ion-card-subtitle>
           <ion-card-subtitle>{{films.rating.averageRating}} {{films.rating.numVotes}}</ion-card-subtitle>
         </ion-card-header>

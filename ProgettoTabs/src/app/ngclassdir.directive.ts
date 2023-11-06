@@ -5,11 +5,15 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 })
 export class NgclassdirDirective {
   constructor(
-    private _el: ElementRef //tipo di dato che praticamente prende il mio "h1" dal html
+    private _el: ElementRef<HTMLHeadingElement> //tipo di dato che praticamente prende il mio "h1" dal html
   ) {}
-  @Input() set questoFilmFaSchifo(badRating: Boolean) {
-    if (badRating) {
+  @Input() set questoFilmFaSchifo(rating: number) {
+    if (rating<=this.minRating) {
       this._el.nativeElement.style.color = '#492000';
     }
-  }
+    else{
+      this._el.nativeElement.style.color ='inherit';
+    }
+  } 
+  @Input() minRating=0;
 }

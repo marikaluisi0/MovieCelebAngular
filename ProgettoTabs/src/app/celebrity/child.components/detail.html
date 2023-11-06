@@ -10,6 +10,6 @@
           <ion-card-title>{{celebrity.name}}</ion-card-title>
           <ion-card-subtitle>{{celebrity.birthYear}}</ion-card-subtitle>
           <ion-card-subtitle>{{celebrity.deathYear}}</ion-card-subtitle>
-          <ion-card-subtitle *ngFor="let movie of celebrity.movies">{{movie.movieTitle}}</ion-card-subtitle>
+          <ion-card-subtitle *ngFor="let movie of celebrity.movies" [routerLink]="['/tabs/movie/detail/',movie.movieId ]">{{movie.movieTitle}}</ion-card-subtitle>
         </ion-card-header>
       </ion-card>

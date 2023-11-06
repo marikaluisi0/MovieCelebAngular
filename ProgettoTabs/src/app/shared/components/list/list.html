@@ -6,24 +6,23 @@
       <ion-item [button]="true" (click)="detailsItem(item)">
 
         <ion-label
-          ><h1 class="title" [questoFilmFaSchifo]="(item.rating| toInt:1) <=  5">
-            <span>{{ item.text }}</span
+          ><h1 class="title">
+            <span [minRating]="5" [questoFilmFaSchifo]="item.rating | toInt:1">{{ item.text }}</span
             >
             <!--[class.questo-film-fa-cagare]="(item.rating | toInt:1) <=  5"-->
 
             <!-- <span [ngClass]="questo-film-fa-cagare:(item.rating | toInt:1)">{{ item.text }}</span> -->
           </h1>
 
-          <span></span
+          <span *ngFor="let a of item.attori" class="actors"> {{a.celebrityName}} - </span
         ></ion-label>
         <ion-label class="ion-text-wrap" slot="end">
           <p class="year">{{item.year}}</p>
-          <p class="rating">{{ item.rating! |toInt:1 }}</p>
+          <p class="rating">{{ item.rating! | toInt:1 }}</p>
         </ion-label>
-        <ion-label *ngFor="let a of item.attori">{{a.celebrityName}}</ion-label>
       </ion-item>
 
-      <app-progress-bar [value]="(item.rating| toInt:1)"></app-progress-bar>
+      <app-progress-bar [value]="(item.rating | toInt:1)"></app-progress-bar>
 
       <!-- <ion-progress-bar
         slot="end"

@@ -16,9 +16,9 @@ export class RangeBarComponent{
     }
 
     setRangeColor(value:number) {
-        if (value < 50) {
+        if (value < 40) {
             this.sliderColor = 'danger'
-        }else if(value >= 50 && value < 80) {
+        }else if(value >= 40 && value < 70) {
             this.sliderColor = 'warning'
         }else {
             this.sliderColor = 'primary'

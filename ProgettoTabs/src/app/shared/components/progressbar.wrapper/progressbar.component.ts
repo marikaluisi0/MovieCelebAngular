@@ -24,9 +24,9 @@ export class ProgressBar implements OnInit, OnChanges {
   }
 
   setBarColor(value: number) {
-    if (value < 0.5) {
+    if (value < 0.4) {
       this.barColor = 'danger';
-    } else if (value >= 0.5 && value < 0.8) {
+    } else if (value >= 0.4 && value < 0.7) {
       this.barColor = 'warning';
     } else {
       this.barColor = 'primary';
