@@ -1,9 +1,9 @@
 
 
+<div class="range">Filtra i film in base alla loro valutazione:<app-range (ionChange)="ratingItem($event)"></app-range></div>
 
-<app-range (ionChange)="ratingItem($event)"></app-range>
 
-<ion-content color="light">
+<ion-content color="dark">
   <ion-list [inset]="true">
     <ion-item-sliding *ngFor="let item of items | orderBy:'rating'">
       <ion-item [button]="true" (click)="detailsItem(item)">
